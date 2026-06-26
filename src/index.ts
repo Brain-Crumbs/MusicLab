@@ -8,7 +8,7 @@ export * from "./core/index.js";
 // export * from "./presets/index.js";
 
 // Renderers
-// export * from "./renderers/index.js";
+export * from "./renderers/index.js";
 
 // Visualization data builders (no UI dependencies)
 // export * from "./visualizations/index.js";
