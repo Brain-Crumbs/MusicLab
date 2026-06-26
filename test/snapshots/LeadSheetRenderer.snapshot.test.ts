@@ -42,9 +42,7 @@ describe("R8.9 — LeadSheetRenderer snapshot", () => {
   });
 
   it("wraps by phrase length (8-bar template -> 8 bars per line)", () => {
-    expect(
-      renderer.render(run(16, PhraseTemplates.eightBarLongArc)),
-    ).toMatchSnapshot();
+    expect(renderer.render(run(16, PhraseTemplates.eightBarLongArc))).toMatchSnapshot();
   });
 
   it("honours an explicit barsPerLine override", () => {
@@ -68,10 +66,7 @@ describe("R8.9 — LeadSheetRenderer snapshot", () => {
     expect(widths.size).toBe(1);
 
     // Total cells equals the number of chords.
-    const cellCount = lines.reduce(
-      (sum, l) => sum + (l.match(/\|/g)!.length - 1),
-      0,
-    );
+    const cellCount = lines.reduce((sum, l) => sum + (l.match(/\|/g)!.length - 1), 0);
     expect(cellCount).toBe(result.chords.length);
   });
 

@@ -23,10 +23,7 @@ function round(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(round);
   if (value && typeof value === "object") {
     return Object.fromEntries(
-      Object.entries(value as Record<string, unknown>).map(([k, v]) => [
-        k,
-        round(v),
-      ]),
+      Object.entries(value as Record<string, unknown>).map(([k, v]) => [k, round(v)]),
     );
   }
   return value;

@@ -73,10 +73,7 @@ export class LeadSheetRenderer {
     return this.concrete.renderSequence(result.chords, key, resolver);
   }
 
-  private resolveBarsPerLine(
-    result: GenerationResult,
-    options: LeadSheetOptions,
-  ): number {
+  private resolveBarsPerLine(result: GenerationResult, options: LeadSheetOptions): number {
     if (options.barsPerLine !== undefined && options.barsPerLine > 0) {
       return options.barsPerLine;
     }

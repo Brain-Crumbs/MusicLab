@@ -39,7 +39,15 @@ describe("ChordCatalog.majorKeyMvp", () => {
 
   it("assigns correct scale degrees", () => {
     const expected: Record<string, number> = {
-      I: 1, ii: 2, iii: 3, IV: 4, V: 5, V7: 5, vi: 6, "vii°": 7, bVII: 7,
+      I: 1,
+      ii: 2,
+      iii: 3,
+      IV: 4,
+      V: 5,
+      V7: 5,
+      vi: 6,
+      "vii°": 7,
+      bVII: 7,
     };
     for (const [id, degree] of Object.entries(expected)) {
       expect(byId.get(id)?.scaleDegree, `${id} scaleDegree`).toBe(degree);

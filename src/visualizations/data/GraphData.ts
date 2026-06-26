@@ -46,10 +46,7 @@ export interface GraphEdge<TData = Record<string, never>> {
  * nodes and edges without changing the envelope.  Renderers that don't care
  * about the payload can treat it as opaque.
  */
-export interface GraphData<
-  TNodeData = Record<string, never>,
-  TEdgeData = Record<string, never>,
-> {
+export interface GraphData<TNodeData = Record<string, never>, TEdgeData = Record<string, never>> {
   readonly nodes: readonly GraphNode<TNodeData>[];
   readonly edges: readonly GraphEdge<TEdgeData>[];
 
@@ -65,11 +62,7 @@ export interface GraphData<
  * Builds a {@link GraphNode}, omitting `data` entirely when undefined so the
  * shape stays clean under `exactOptionalPropertyTypes`.
  */
-export function graphNode<TData>(
-  id: string,
-  label: string,
-  data?: TData,
-): GraphNode<TData> {
+export function graphNode<TData>(id: string, label: string, data?: TData): GraphNode<TData> {
   return data === undefined ? { id, label } : { id, label, data };
 }
 

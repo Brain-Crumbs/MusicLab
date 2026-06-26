@@ -1,9 +1,6 @@
 import type { MusicalState } from "../model/MusicalState.js";
 import type { HarmonicEdge } from "../model/HarmonicEdge.js";
-import type {
-  GenerationStep,
-  CandidateScore,
-} from "../model/GenerationStep.js";
+import type { GenerationStep, CandidateScore } from "../model/GenerationStep.js";
 import { buildFactorContext } from "../factors/FactorContext.js";
 import { Softmax, type ScoredCandidate } from "../probability/Softmax.js";
 import type { GeneratorDependencies } from "./GeneratorDependencies.js";
@@ -41,8 +38,7 @@ export class StepGenerator {
    *   topology), since there is then nothing to sample.
    */
   generateStep(state: MusicalState, stepIndex: number): GenerationStep {
-    const { topology, scorer, phraseEngine, sampler, stateTransitioner, config } =
-      this.deps;
+    const { topology, scorer, phraseEngine, sampler, stateTransitioner, config } = this.deps;
 
     // -----------------------------------------------------------------------
     // 1. Candidate edges — what can happen from here.
@@ -62,9 +58,7 @@ export class StepGenerator {
     // -----------------------------------------------------------------------
     const candidates: CandidateScore[] = outgoing
       .map((edge) =>
-        scorer.scoreCandidate(
-          buildFactorContext({ edge, state, config, topology, phraseEngine }),
-        ),
+        scorer.scoreCandidate(buildFactorContext({ edge, state, config, topology, phraseEngine })),
       )
       .sort((a, b) => b.totalScore - a.totalScore);
 
@@ -119,10 +113,7 @@ export class StepGenerator {
  * The id always comes from a candidate (the distribution is built from them),
  * so a miss indicates an internal invariant violation rather than bad input.
  */
-function findEdge(
-  candidates: readonly CandidateScore[],
-  edgeId: string,
-): HarmonicEdge {
+function findEdge(candidates: readonly CandidateScore[], edgeId: string): HarmonicEdge {
   const match = candidates.find((c) => c.edge.id === edgeId);
   if (match === undefined) {
     throw new Error(

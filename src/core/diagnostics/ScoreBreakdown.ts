@@ -82,9 +82,7 @@ export function buildScoreBreakdown(
  * (largest absolute `weightedScore` first), for display.  Returns a new array;
  * does not mutate the breakdown.
  */
-export function contributionsByInfluence(
-  breakdown: ScoreBreakdown,
-): readonly FactorContribution[] {
+export function contributionsByInfluence(breakdown: ScoreBreakdown): readonly FactorContribution[] {
   return [...breakdown.contributions].sort(
     (a, b) => Math.abs(b.weightedScore) - Math.abs(a.weightedScore),
   );

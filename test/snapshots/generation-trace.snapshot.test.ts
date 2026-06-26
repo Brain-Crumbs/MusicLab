@@ -29,10 +29,7 @@ function round(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(round);
   if (value && typeof value === "object") {
     return Object.fromEntries(
-      Object.entries(value as Record<string, unknown>).map(([k, v]) => [
-        k,
-        round(v),
-      ]),
+      Object.entries(value as Record<string, unknown>).map(([k, v]) => [k, round(v)]),
     );
   }
   return value;
@@ -105,16 +102,11 @@ describe("D7.6 — generation trace snapshot", () => {
   it("score breakdown totals equal the sum of weighted contributions", () => {
     for (const step of trace.steps) {
       for (const breakdown of TraceRecorder.scoreBreakdowns(step)) {
-        const summed = breakdown.contributions.reduce(
-          (s, c) => s + c.weightedScore,
-          0,
-        );
+        const summed = breakdown.contributions.reduce((s, c) => s + c.weightedScore, 0);
         expect(breakdown.totalScore).toBeCloseTo(summed, 9);
       }
       // Exactly one breakdown per step is the selected edge.
-      const selected = TraceRecorder.scoreBreakdowns(step).filter(
-        (b) => b.selected,
-      );
+      const selected = TraceRecorder.scoreBreakdowns(step).filter((b) => b.selected);
       expect(selected).toHaveLength(1);
       expect(selected[0]!.edgeId).toBe(step.selectedEdge.id);
     }

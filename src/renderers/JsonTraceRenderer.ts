@@ -84,9 +84,7 @@ export class JsonTraceRenderer {
   renderTrace(trace: GenerationTrace, options: JsonTraceOptions = {}): string {
     const obj = this.toObject(trace, options);
     const pretty = options.pretty ?? true;
-    return pretty
-      ? JSON.stringify(obj, null, options.indent ?? 2)
-      : JSON.stringify(obj);
+    return pretty ? JSON.stringify(obj, null, options.indent ?? 2) : JSON.stringify(obj);
   }
 
   /** Builds the plain serialisable projection (exposed for testing/reuse). */

@@ -129,9 +129,7 @@ export class ConcreteChordRenderer {
   private renderRoot(chord: Chord, key: MusicalKey): string {
     const degreeIndex = chord.scaleDegree - 1; // 0–6
     const tonicLetter = key[0] as string; // "Eb" -> "E"
-    const tonicLetterIndex = LETTERS.indexOf(
-      tonicLetter as (typeof LETTERS)[number],
-    );
+    const tonicLetterIndex = LETTERS.indexOf(tonicLetter as (typeof LETTERS)[number]);
 
     const rootLetter = LETTERS[(tonicLetterIndex + degreeIndex) % 7] ?? "C";
     const naturalPitchClass = LETTER_PITCH_CLASS[rootLetter] ?? 0;
@@ -199,7 +197,7 @@ const EXTENSION_SUFFIX: Readonly<Record<ChordExtension, string>> = {
  * with the fewest accidentals (e.g. +11 semitones reads as one flat down).
  */
 function accidentalString(rawDiff: number): string {
-  let diff = (((rawDiff % 12) + 12) % 12); // 0–11
+  let diff = ((rawDiff % 12) + 12) % 12; // 0–11
   if (diff > 6) diff -= 12; // collapse to [-5, 6]
   if (diff > 0) return "#".repeat(diff);
   if (diff < 0) return "b".repeat(-diff);
@@ -218,9 +216,7 @@ let cachedMvpResolver: ChordResolver | undefined;
  */
 export function defaultMvpResolver(): ChordResolver {
   if (cachedMvpResolver === undefined) {
-    const byId = new Map<ChordId, Chord>(
-      ChordCatalog.majorKeyMvp().map((c) => [c.id, c]),
-    );
+    const byId = new Map<ChordId, Chord>(ChordCatalog.majorKeyMvp().map((c) => [c.id, c]));
     cachedMvpResolver = {
       getChord(id: ChordId): Chord {
         const chord = byId.get(id);

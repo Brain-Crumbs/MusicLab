@@ -83,10 +83,7 @@ export class ProgressionTextRenderer {
   }
 
   /** Renders an explicit chord sequence (used by render and reusable directly). */
-  renderSequence(
-    chords: readonly ChordId[],
-    options: ProgressionTextOptions = {},
-  ): string {
+  renderSequence(chords: readonly ChordId[], options: ProgressionTextOptions = {}): string {
     const mode = options.mode ?? "both";
 
     const romanLine = this.roman.renderSequence(chords);
@@ -94,9 +91,7 @@ export class ProgressionTextRenderer {
 
     const key = options.key ?? "C";
     const resolver = options.resolver ?? defaultMvpResolver();
-    const concreteLine = this.concrete
-      .renderSequence(chords, key, resolver)
-      .join(this.separator);
+    const concreteLine = this.concrete.renderSequence(chords, key, resolver).join(this.separator);
 
     if (mode === "concrete") return concreteLine;
     return `${romanLine}\n${concreteLine}`;

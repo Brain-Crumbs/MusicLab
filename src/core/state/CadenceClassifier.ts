@@ -122,8 +122,7 @@ export class CadenceClassifier {
 
     // isApproachingCadence: the chord we just landed on is dominant-function,
     // so the NEXT move could resolve into a cadence.
-    const isApproachingCadence =
-      toChord.harmonicFunction === HarmonicFunction.Dominant;
+    const isApproachingCadence = toChord.harmonicFunction === HarmonicFunction.Dominant;
 
     const expectedCadenceType = isApproachingCadence
       ? toChord.quality === ChordQuality.DominantSeventh
@@ -139,12 +138,9 @@ export class CadenceClassifier {
           ? previousCadenceState.stepsSinceLastCadence + 1
           : undefined;
 
-    const resolvedCadenceType =
-      completedCadence ?? previousCadenceState.lastCadenceType;
+    const resolvedCadenceType = completedCadence ?? previousCadenceState.lastCadenceType;
     const resolvedCadenceToChord =
-      completedCadence !== undefined
-        ? toChord.id
-        : previousCadenceState.lastCadenceToChord;
+      completedCadence !== undefined ? toChord.id : previousCadenceState.lastCadenceToChord;
 
     return {
       isApproachingCadence,
@@ -155,8 +151,7 @@ export class CadenceClassifier {
         lastCadenceToChord: resolvedCadenceToChord,
       }),
       ...(stepsSinceLastCadence !== undefined && { stepsSinceLastCadence }),
-      ...(isApproachingCadence &&
-        expectedCadenceType !== undefined && { expectedCadenceType }),
+      ...(isApproachingCadence && expectedCadenceType !== undefined && { expectedCadenceType }),
     };
   }
 

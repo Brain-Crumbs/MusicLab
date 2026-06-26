@@ -69,12 +69,8 @@ export class CsvTraceRenderer {
     const num = (n: number): string => round(n, precision);
 
     const rows = trace.steps.map((step) => {
-      const selectedProbability = step.distribution.getProbability(
-        step.selectedEdge.id,
-      );
-      const selected = step.candidates.find(
-        (c) => c.edge.id === step.selectedEdge.id,
-      );
+      const selectedProbability = step.distribution.getProbability(step.selectedEdge.id);
+      const selected = step.candidates.find((c) => c.edge.id === step.selectedEdge.id);
       return [
         String(step.stepIndex),
         step.selectedEdge.from,
@@ -95,10 +91,7 @@ export class CsvTraceRenderer {
   }
 
   /** One row per candidate per step — the full considered field. */
-  renderCandidates(
-    trace: GenerationTrace,
-    options: CsvTraceOptions = {},
-  ): string {
+  renderCandidates(trace: GenerationTrace, options: CsvTraceOptions = {}): string {
     const delimiter = options.delimiter ?? DEFAULT_DELIMITER;
     const precision = options.precision ?? DEFAULT_PRECISION;
     const num = (n: number): string => round(n, precision);
@@ -118,12 +111,7 @@ export class CsvTraceRenderer {
       }
     }
 
-    return this.assemble(
-      [...CANDIDATE_HEADER],
-      rows,
-      delimiter,
-      options.header ?? true,
-    );
+    return this.assemble([...CANDIDATE_HEADER], rows, delimiter, options.header ?? true);
   }
 
   // -------------------------------------------------------------------------
@@ -137,9 +125,7 @@ export class CsvTraceRenderer {
     includeHeader: boolean,
   ): string {
     const lines = includeHeader ? [header, ...rows] : rows;
-    return lines
-      .map((row) => row.map((f) => escapeField(f, delimiter)).join(delimiter))
-      .join("\n");
+    return lines.map((row) => row.map((f) => escapeField(f, delimiter)).join(delimiter)).join("\n");
   }
 }
 

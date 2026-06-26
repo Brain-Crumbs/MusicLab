@@ -24,9 +24,7 @@ import type { PhraseEngine } from "../phrase/PhraseEngine.js";
  * "Flatward"  = toward the subdominant / tonic side (less tension).
  * Returns undefined for ambiguous motions (Neutral, Deceptive).
  */
-function circleDirectionFromMotion(
-  motion: FunctionalMotion,
-): CircleDirection | undefined {
+function circleDirectionFromMotion(motion: FunctionalMotion): CircleDirection | undefined {
   switch (motion) {
     case FunctionalMotion.TonicToDominant:
     case FunctionalMotion.PredominantToDominant:
@@ -54,9 +52,7 @@ function updateRecentChords(
   windowSize: number,
 ): readonly ChordId[] {
   const extended = [...recentChords, newChord];
-  return extended.length > windowSize
-    ? extended.slice(extended.length - windowSize)
-    : extended;
+  return extended.length > windowSize ? extended.slice(extended.length - windowSize) : extended;
 }
 
 // ---------------------------------------------------------------------------
@@ -96,8 +92,7 @@ export class StateTransitioner {
     // -----------------------------------------------------------------------
     // Phrase position
     // -----------------------------------------------------------------------
-    const newPhrasePosition =
-      (state.phrasePosition + 1) % state.phraseLength;
+    const newPhrasePosition = (state.phrasePosition + 1) % state.phraseLength;
     const newMeasureIndex = state.measureIndex + 1;
 
     // -----------------------------------------------------------------------
@@ -132,14 +127,10 @@ export class StateTransitioner {
     // Time-since counters
     // -----------------------------------------------------------------------
     const newTimeSinceTonic =
-      toChord.harmonicFunction === HarmonicFunction.Tonic
-        ? 0
-        : state.timeSinceTonic + 1;
+      toChord.harmonicFunction === HarmonicFunction.Tonic ? 0 : state.timeSinceTonic + 1;
 
     const newTimeSinceDominant =
-      toChord.harmonicFunction === HarmonicFunction.Dominant
-        ? 0
-        : state.timeSinceDominant + 1;
+      toChord.harmonicFunction === HarmonicFunction.Dominant ? 0 : state.timeSinceDominant + 1;
 
     const newTimeSinceSubdominant =
       toChord.harmonicFunction === HarmonicFunction.Predominant
@@ -150,16 +141,12 @@ export class StateTransitioner {
     // Circle direction
     // -----------------------------------------------------------------------
     const newCircleDirection =
-      circleDirectionFromMotion(selectedEdge.functionalMotion) ??
-      state.recentCircleDirection;
+      circleDirectionFromMotion(selectedEdge.functionalMotion) ?? state.recentCircleDirection;
 
     // -----------------------------------------------------------------------
     // Repetition counts
     // -----------------------------------------------------------------------
-    const newRepetitionCounts = RepetitionTracker.update(
-      state.repetitionCounts,
-      selectedEdge.to,
-    );
+    const newRepetitionCounts = RepetitionTracker.update(state.repetitionCounts, selectedEdge.to);
 
     // -----------------------------------------------------------------------
     // Surprise budget

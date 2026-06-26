@@ -1,7 +1,4 @@
-import {
-  classifyPhrasePosition,
-  PhraseZone,
-} from "../model/PhraseTemplate.js";
+import { classifyPhrasePosition, PhraseZone } from "../model/PhraseTemplate.js";
 
 /**
  * Stateless utility for classifying phrase positions into PhraseZones.

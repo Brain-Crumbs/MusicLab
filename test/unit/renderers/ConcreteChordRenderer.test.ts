@@ -8,9 +8,7 @@ import { chordId } from "../../../src/core/model/ChordId.js";
 import type { Chord } from "../../../src/core/model/Chord.js";
 import type { MusicalKey } from "../../../src/core/model/MusicalState.js";
 
-const byId = new Map<string, Chord>(
-  ChordCatalog.majorKeyMvp().map((c) => [c.id, c]),
-);
+const byId = new Map<string, Chord>(ChordCatalog.majorKeyMvp().map((c) => [c.id, c]));
 const chord = (id: string): Chord => {
   const c = byId.get(id);
   if (c === undefined) throw new Error(`unknown chord "${id}"`);
@@ -19,8 +17,7 @@ const chord = (id: string): Chord => {
 
 describe("ConcreteChordRenderer", () => {
   const renderer = new ConcreteChordRenderer();
-  const render = (id: string, key: MusicalKey): string =>
-    renderer.renderChord(chord(id), key);
+  const render = (id: string, key: MusicalKey): string => renderer.renderChord(chord(id), key);
 
   // -------------------------------------------------------------------------
   // Spec examples from PROJECT_OVERVIEW

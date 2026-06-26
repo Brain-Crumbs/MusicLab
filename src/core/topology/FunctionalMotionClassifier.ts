@@ -9,7 +9,7 @@ const MAJOR_SCALE_SEMITONES = [0, 2, 4, 5, 7, 9, 11] as const;
 
 function toSemitones(chord: Chord): number {
   const natural = MAJOR_SCALE_SEMITONES[chord.scaleDegree - 1] ?? 0;
-  return ((natural + chord.accidentalOffset) % 12 + 12) % 12;
+  return (((natural + chord.accidentalOffset) % 12) + 12) % 12;
 }
 
 /**
@@ -64,8 +64,7 @@ export class FunctionalMotionClassifier {
     // 5. Stepwise motion: roots separated by at most a whole step (2 semitones).
     const semiDiff = toSemitones(to) - toSemitones(from);
     // Normalise to [-6, 6] for directional comparison
-    const normDiff =
-      semiDiff > 6 ? semiDiff - 12 : semiDiff < -6 ? semiDiff + 12 : semiDiff;
+    const normDiff = semiDiff > 6 ? semiDiff - 12 : semiDiff < -6 ? semiDiff + 12 : semiDiff;
 
     if (normDiff === -1 || normDiff === -2) {
       return FunctionalMotion.StepwiseDescending;

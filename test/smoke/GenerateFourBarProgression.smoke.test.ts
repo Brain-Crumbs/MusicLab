@@ -54,8 +54,7 @@ describe("X6.7 — generate 4-bar progression", () => {
       }
     }
 
-    const mean = (xs: number[]): number =>
-      xs.reduce((a, b) => a + b, 0) / xs.length;
+    const mean = (xs: number[]): number => xs.reduce((a, b) => a + b, 0) / xs.length;
 
     const peak = mean(tensionByPosition.get(2) ?? []); // target 0.85
     const release = mean(tensionByPosition.get(3) ?? []); // target 0.10

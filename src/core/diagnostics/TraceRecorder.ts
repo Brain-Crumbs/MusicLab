@@ -1,18 +1,11 @@
 import type { ChordId } from "../model/ChordId.js";
 import type { MusicalState } from "../model/MusicalState.js";
 import type { GenerationStep } from "../model/GenerationStep.js";
-import type {
-  GenerationTrace,
-  CadenceEvent,
-  ChordUsageSummary,
-} from "../model/GenerationTrace.js";
+import type { GenerationTrace, CadenceEvent, ChordUsageSummary } from "../model/GenerationTrace.js";
 import { computeTensionSummary } from "../model/GenerationTrace.js";
 import { type StateSnapshot, toStateSnapshot } from "./StateSnapshot.js";
 import { type ScoreBreakdown, buildScoreBreakdown } from "./ScoreBreakdown.js";
-import {
-  type DistributionSnapshot,
-  buildDistributionSnapshot,
-} from "./DistributionSnapshot.js";
+import { type DistributionSnapshot, buildDistributionSnapshot } from "./DistributionSnapshot.js";
 
 // ---------------------------------------------------------------------------
 // D7.4 — Trace recorder
@@ -63,8 +56,7 @@ export class TraceRecorder {
     const chordSequence: ChordId[] = steps.map((s) => s.selectedChord);
     // Prefer the explicitly-supplied starting chord; otherwise recover it from
     // the first step's previous state.  Undefined only for an empty run.
-    const initialChord =
-      args.initialChord ?? steps[0]?.previousState.currentChord;
+    const initialChord = args.initialChord ?? steps[0]?.previousState.currentChord;
 
     const cadenceEvents: CadenceEvent[] = [];
     for (const step of steps) {
@@ -127,9 +119,7 @@ export class TraceRecorder {
   }
 
   /** A {@link DistributionSnapshot} per step, in order. */
-  static distributionSnapshots(
-    trace: GenerationTrace,
-  ): readonly DistributionSnapshot[] {
+  static distributionSnapshots(trace: GenerationTrace): readonly DistributionSnapshot[] {
     return trace.steps.map((step) => buildDistributionSnapshot(step));
   }
 
@@ -154,9 +144,7 @@ export class TraceRecorder {
 // ---------------------------------------------------------------------------
 
 /** Per-chord counts and frequencies, sorted by count descending. */
-function computeChordUsage(
-  chordSequence: readonly ChordId[],
-): ChordUsageSummary[] {
+function computeChordUsage(chordSequence: readonly ChordId[]): ChordUsageSummary[] {
   const total = chordSequence.length;
   const counts = new Map<ChordId, number>();
   for (const chord of chordSequence) {

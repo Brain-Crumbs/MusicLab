@@ -65,9 +65,7 @@ export interface DistributionSnapshot {
  * Probabilities are read from the step's own distribution, so the snapshot is
  * exactly the field the engine sampled from — no re-computation, no drift.
  */
-export function buildDistributionSnapshot(
-  step: GenerationStep,
-): DistributionSnapshot {
+export function buildDistributionSnapshot(step: GenerationStep): DistributionSnapshot {
   const selectedEdgeId = step.selectedEdge.id;
 
   const candidates: CandidateSnapshot[] = step.candidates.map((c) => ({

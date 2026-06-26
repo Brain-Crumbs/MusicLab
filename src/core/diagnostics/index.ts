@@ -8,10 +8,7 @@ export type { ScoreBreakdown, FactorContribution } from "./ScoreBreakdown.js";
 export { buildScoreBreakdown, contributionsByInfluence } from "./ScoreBreakdown.js";
 
 // Distribution snapshot model (D7.2)
-export type {
-  DistributionSnapshot,
-  CandidateSnapshot,
-} from "./DistributionSnapshot.js";
+export type { DistributionSnapshot, CandidateSnapshot } from "./DistributionSnapshot.js";
 export { buildDistributionSnapshot, shannonEntropy } from "./DistributionSnapshot.js";
 
 // State snapshot model (D7.3)

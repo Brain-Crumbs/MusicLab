@@ -46,13 +46,9 @@ describe("X6.10 — generator never produces impossible transitions", () => {
 
     for (const step of result.steps) {
       // The selected edge appears among the scored candidates...
-      expect(
-        step.candidates.some((c) => c.edge.id === step.selectedEdge.id),
-      ).toBe(true);
+      expect(step.candidates.some((c) => c.edge.id === step.selectedEdge.id)).toBe(true);
       // ...and carries positive probability in the sampled distribution.
-      expect(step.distribution.getProbability(step.selectedEdge.id)).toBeGreaterThan(
-        0,
-      );
+      expect(step.distribution.getProbability(step.selectedEdge.id)).toBeGreaterThan(0);
     }
   });
 
