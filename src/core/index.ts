@@ -5,8 +5,8 @@
 export * from "./topology/index.js";
 
 // Phrase, tension, and state (Wave 3)
-// export * from "./phrase/index.js";
-// export * from "./state/index.js";
+export * from "./phrase/index.js";
+export * from "./state/index.js";
 
 // Factor engines (Wave 4)
 // export * from "./factors/index.js";
