@@ -1,4 +1,5 @@
 import type { MusicalState } from "../model/MusicalState.js";
+import type { ChordId } from "../model/ChordId.js";
 import type { GenerationStep } from "../model/GenerationStep.js";
 import { InitialStateFactory } from "../state/InitialStateFactory.js";
 import type { GeneratorDependencies } from "./GeneratorDependencies.js";
@@ -29,6 +30,7 @@ export class GenerationSession {
   private readonly stepGenerator: StepGenerator;
   private readonly seed?: number;
   private readonly totalSteps: number;
+  private readonly initialChord: ChordId;
 
   private readonly steps: GenerationStep[] = [];
   private state: MusicalState;
@@ -38,6 +40,7 @@ export class GenerationSession {
 
     this.stepGenerator = new StepGenerator(deps);
     this.totalSteps = request.steps;
+    this.initialChord = request.initialChord;
     if (deps.config.seed !== undefined) {
       this.seed = deps.config.seed;
     }
@@ -93,12 +96,14 @@ export class GenerationSession {
   toResult(): GenerationResult {
     const steps = [...this.steps];
     return {
+      initialChord: this.initialChord,
       chords: steps.map((s) => s.selectedChord),
       steps,
       finalState: this.state,
       trace: TraceRecorder.record({
         steps,
         finalState: this.state,
+        initialChord: this.initialChord,
         ...(this.seed !== undefined && { seed: this.seed }),
       }),
     };

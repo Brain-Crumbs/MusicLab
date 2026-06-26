@@ -45,15 +45,17 @@ describe("RomanNumeralRenderer", () => {
   // Result / trace rendering
   // -------------------------------------------------------------------------
 
-  it("renders a full generation result's chord sequence", () => {
+  it("renders the full progression including the starting chord", () => {
     const result = createDefaultMvpGenerator({ seed: 123 }).generate({
       steps: 8,
       initialChord: chordId("I"),
     });
 
     const rendered = new RomanNumeralRenderer().render(result);
-    expect(rendered).toBe(result.chords.join(" - "));
-    expect(rendered.split(" - ")).toHaveLength(result.chords.length);
+    // The progression begins on the requested initialChord, then the N moves.
+    expect(rendered).toBe([result.initialChord, ...result.chords].join(" - "));
+    expect(rendered.split(" - ")[0]).toBe("I");
+    expect(rendered.split(" - ")).toHaveLength(result.chords.length + 1);
   });
 
   it("renderTrace matches render for the same run", () => {
