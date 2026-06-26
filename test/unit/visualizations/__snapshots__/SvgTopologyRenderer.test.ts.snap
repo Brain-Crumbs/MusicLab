@@ -1,0 +1,86 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SvgTopologyRenderer — snapshot > matches the topology SVG snapshot 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+    </marker>
+  </defs>
+  <g class="edges" fill="none" stroke="#94a3b8" stroke-width="1.5">
+    <line x1="412" y1="90.78" x2="585.19" y2="390.75" marker-end="url(#arrow)" />
+    <line x1="404.17" y1="93.64" x2="473.8" y2="488.56" marker-end="url(#arrow)" />
+    <line x1="395.83" y1="93.64" x2="326.2" y2="488.56" marker-end="url(#arrow)" />
+    <line x1="422.55" y1="78.21" x2="521.53" y2="114.23" marker-end="url(#arrow)" />
+    <line x1="388" y1="90.78" x2="214.81" y2="390.75" marker-end="url(#arrow)" />
+    <line x1="418.39" y1="85.43" x2="605.06" y2="242.06" marker-end="url(#arrow)" />
+    <line x1="377.45" y1="78.21" x2="278.47" y2="114.23" marker-end="url(#arrow)" />
+    <line x1="543.67" y1="147.45" x2="483.52" y2="488.56" marker-end="url(#arrow)" />
+    <line x1="535.84" y1="144.59" x2="335.34" y2="491.88" marker-end="url(#arrow)" />
+    <line x1="552.01" y1="147.45" x2="594.33" y2="387.43" marker-end="url(#arrow)" />
+    <line x1="603.96" y1="268.27" x2="227.12" y2="405.42" marker-end="url(#arrow)" />
+    <line x1="622.34" y1="283.7" x2="604.05" y2="387.43" marker-end="url(#arrow)" />
+    <line x1="614.51" y1="239.28" x2="561.84" y2="148.06" marker-end="url(#arrow)" />
+    <line x1="580.8" y1="430.43" x2="500.11" y2="498.13" marker-end="url(#arrow)" />
+    <line x1="576.64" y1="423.21" x2="347.65" y2="506.55" marker-end="url(#arrow)" />
+    <line x1="587.19" y1="394.22" x2="414" y2="94.25" marker-end="url(#arrow)" />
+    <line x1="595.02" y1="391.36" x2="552.7" y2="151.38" marker-end="url(#arrow)" />
+    <line x1="576.64" y1="406.79" x2="199.8" y2="269.64" marker-end="url(#arrow)" />
+    <line x1="580.8" y1="399.57" x2="273.61" y2="141.81" marker-end="url(#arrow)" />
+    <line x1="474.49" y1="492.49" x2="404.86" y2="97.57" marker-end="url(#arrow)" />
+    <line x1="456.11" y1="507.92" x2="227.12" y2="424.58" marker-end="url(#arrow)" />
+    <line x1="454.66" y1="516.13" x2="349.34" y2="516.13" marker-end="url(#arrow)" />
+    <line x1="497.05" y1="500.7" x2="577.74" y2="433" marker-end="url(#arrow)" />
+    <line x1="466.66" y1="495.35" x2="266.16" y2="148.06" marker-end="url(#arrow)" />
+    <line x1="325.51" y1="492.49" x2="395.14" y2="97.57" marker-end="url(#arrow)" />
+    <line x1="302.95" y1="500.7" x2="222.26" y2="433" marker-end="url(#arrow)" />
+    <line x1="219.2" y1="399.57" x2="526.39" y2="141.81" marker-end="url(#arrow)" />
+    <line x1="224.81" y1="415" x2="571.19" y2="415" marker-end="url(#arrow)" />
+    <line x1="223.36" y1="423.21" x2="452.35" y2="506.55" marker-end="url(#arrow)" />
+    <line x1="219.2" y1="430.43" x2="299.89" y2="498.13" marker-end="url(#arrow)" />
+    <line x1="212.81" y1="394.22" x2="386" y2="94.25" marker-end="url(#arrow)" />
+    <line x1="191.88" y1="244.63" x2="378.55" y2="88" marker-end="url(#arrow)" />
+    <line x1="177.66" y1="283.7" x2="195.95" y2="387.43" marker-end="url(#arrow)" />
+    <line x1="274.71" y1="115.6" x2="373.69" y2="79.58" marker-end="url(#arrow)" />
+    <line x1="270.55" y1="139.24" x2="577.74" y2="397" marker-end="url(#arrow)" />
+  </g>
+  <g class="nodes" font-family="sans-serif" font-size="14" text-anchor="middle">
+    <g>
+      <circle cx="400" cy="70" r="24" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" />
+      <text x="400" y="74.67" fill="#0f172a">I</text>
+    </g>
+    <g>
+      <circle cx="547.84" cy="123.81" r="24" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" />
+      <text x="547.84" y="128.48" fill="#0f172a">ii</text>
+    </g>
+    <g>
+      <circle cx="626.51" cy="260.06" r="24" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" />
+      <text x="626.51" y="264.73" fill="#0f172a">iii</text>
+    </g>
+    <g>
+      <circle cx="599.19" cy="415" r="24" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" />
+      <text x="599.19" y="419.67" fill="#0f172a">IV</text>
+    </g>
+    <g>
+      <circle cx="478.66" cy="516.13" r="24" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" />
+      <text x="478.66" y="520.8" fill="#0f172a">V</text>
+    </g>
+    <g>
+      <circle cx="321.34" cy="516.13" r="24" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" />
+      <text x="321.34" y="520.8" fill="#0f172a">V7</text>
+    </g>
+    <g>
+      <circle cx="200.81" cy="415" r="24" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" />
+      <text x="200.81" y="419.67" fill="#0f172a">vi</text>
+    </g>
+    <g>
+      <circle cx="173.49" cy="260.06" r="24" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" />
+      <text x="173.49" y="264.73" fill="#0f172a">vii°</text>
+    </g>
+    <g>
+      <circle cx="252.16" cy="123.81" r="24" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" />
+      <text x="252.16" y="128.48" fill="#0f172a">bVII</text>
+    </g>
+  </g>
+</svg>"
+`;

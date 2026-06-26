@@ -1,0 +1,177 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TrajectoryGraphDataBuilder — snapshot > matches the trajectory graph snapshot 1`] = `
+{
+  "directed": true,
+  "edges": [
+    {
+      "data": {
+        "functionalMotion": "neutral",
+        "probability": 0.5895958242370525,
+        "stepIndex": 0,
+        "tensionDelta": 0.04999999999999999,
+        "wasModalChoice": true,
+      },
+      "id": "step-0:I->vi",
+      "label": "0",
+      "source": "I",
+      "target": "vi",
+      "weight": 0.5895958242370525,
+    },
+    {
+      "data": {
+        "functionalMotion": "tonic_to_subdominant",
+        "probability": 0.4919436245767321,
+        "stepIndex": 1,
+        "tensionDelta": 0.35,
+        "wasModalChoice": true,
+      },
+      "id": "step-1:vi->ii",
+      "label": "1",
+      "source": "vi",
+      "target": "ii",
+      "weight": 0.4919436245767321,
+    },
+    {
+      "data": {
+        "functionalMotion": "predominant_to_dominant",
+        "probability": 0.40349496632759113,
+        "stepIndex": 2,
+        "tensionDelta": 0.19999999999999996,
+        "wasModalChoice": false,
+      },
+      "id": "step-2:ii->V",
+      "label": "2",
+      "source": "ii",
+      "target": "V",
+      "weight": 0.40349496632759113,
+    },
+    {
+      "data": {
+        "functionalMotion": "dominant_to_tonic",
+        "probability": 0.9718020565940586,
+        "stepIndex": 3,
+        "tensionDelta": -0.6,
+        "wasModalChoice": true,
+      },
+      "id": "step-3:V->I",
+      "label": "3",
+      "source": "V",
+      "target": "I",
+      "weight": 0.9718020565940586,
+    },
+    {
+      "data": {
+        "functionalMotion": "neutral",
+        "probability": 0.15666040784567423,
+        "stepIndex": 4,
+        "tensionDelta": 0.15,
+        "wasModalChoice": false,
+      },
+      "id": "step-4:I->iii",
+      "label": "4",
+      "source": "I",
+      "target": "iii",
+      "weight": 0.15666040784567423,
+    },
+    {
+      "data": {
+        "functionalMotion": "stepwise_descending",
+        "probability": 0.3562097779984578,
+        "stepIndex": 5,
+        "tensionDelta": 0.25,
+        "wasModalChoice": true,
+      },
+      "id": "step-5:iii->ii",
+      "label": "5",
+      "source": "iii",
+      "target": "ii",
+      "weight": 0.3562097779984578,
+    },
+    {
+      "data": {
+        "functionalMotion": "predominant_to_dominant",
+        "probability": 0.6870166587445793,
+        "stepIndex": 6,
+        "tensionDelta": 0.4,
+        "wasModalChoice": true,
+      },
+      "id": "step-6:ii->V7",
+      "label": "6",
+      "source": "ii",
+      "target": "V7",
+      "weight": 0.6870166587445793,
+    },
+    {
+      "data": {
+        "functionalMotion": "dominant_to_tonic",
+        "probability": 0.9707707592554217,
+        "stepIndex": 7,
+        "tensionDelta": -0.8,
+        "wasModalChoice": true,
+      },
+      "id": "step-7:V7->I",
+      "label": "7",
+      "source": "V7",
+      "target": "I",
+      "weight": 0.9707707592554217,
+    },
+  ],
+  "nodes": [
+    {
+      "data": {
+        "firstVisitIndex": 0,
+        "isStart": true,
+        "visitCount": 3,
+      },
+      "id": "I",
+      "label": "I",
+    },
+    {
+      "data": {
+        "firstVisitIndex": 1,
+        "isStart": false,
+        "visitCount": 1,
+      },
+      "id": "vi",
+      "label": "vi",
+    },
+    {
+      "data": {
+        "firstVisitIndex": 2,
+        "isStart": false,
+        "visitCount": 2,
+      },
+      "id": "ii",
+      "label": "ii",
+    },
+    {
+      "data": {
+        "firstVisitIndex": 3,
+        "isStart": false,
+        "visitCount": 1,
+      },
+      "id": "V",
+      "label": "V",
+    },
+    {
+      "data": {
+        "firstVisitIndex": 5,
+        "isStart": false,
+        "visitCount": 1,
+      },
+      "id": "iii",
+      "label": "iii",
+    },
+    {
+      "data": {
+        "firstVisitIndex": 7,
+        "isStart": false,
+        "visitCount": 1,
+      },
+      "id": "V7",
+      "label": "V7",
+    },
+  ],
+}
+`;
