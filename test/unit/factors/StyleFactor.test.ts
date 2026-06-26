@@ -37,6 +37,17 @@ describe("StyleFactor", () => {
     expect(underModal).toBeGreaterThan(underClassical);
   });
 
+  it("rewards reaching a modal destination under a modal profile (#16)", () => {
+    // V→bVII is a modal approach: its destination (bVII) is borrowed from a
+    // modal source, so StyleFactor should treat it as Modal-flavoured even
+    // though the edge isn't a ModalReturn. Under the modal profile (Modal 2.0)
+    // it should be clearly preferred; under classical (Modal 0.2) discouraged.
+    const underModal = factor.score(contextFor("V", "bVII", { config: modal })).rawScore;
+    const underClassical = factor.score(contextFor("V", "bVII", { config: classical })).rawScore;
+    expect(underModal).toBeGreaterThan(0);
+    expect(underModal).toBeGreaterThan(underClassical);
+  });
+
   it("clamps within the documented [-3, 2] range", () => {
     for (const config of [folkStable, classical, modal]) {
       for (const [from, to] of [

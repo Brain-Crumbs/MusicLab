@@ -310,6 +310,25 @@ exports[`V9.7 — topology graph data snapshot > matches the projected topology 
     },
     {
       "data": {
+        "baseAffinity": 0.5,
+        "cadenceStrength": 0,
+        "circleDistance": 1,
+        "functionalMotion": "neutral",
+        "styleTags": [
+          "folk",
+          "modal",
+        ],
+        "surpriseCost": 0.2,
+        "tensionDelta": -0.10000000000000003,
+      },
+      "id": "IV->bVII",
+      "label": "neutral",
+      "source": "IV",
+      "target": "bVII",
+      "weight": 0.5,
+    },
+    {
+      "data": {
         "baseAffinity": 0.9,
         "cadenceStrength": 0.85,
         "circleDistance": 1,
@@ -381,6 +400,25 @@ exports[`V9.7 — topology graph data snapshot > matches the projected topology 
       "source": "V",
       "target": "IV",
       "weight": 0.35,
+    },
+    {
+      "data": {
+        "baseAffinity": 0.45,
+        "cadenceStrength": 0,
+        "circleDistance": 3,
+        "functionalMotion": "neutral",
+        "styleTags": [
+          "folk",
+          "modal",
+        ],
+        "surpriseCost": 0.25,
+        "tensionDelta": -0.35,
+      },
+      "id": "V->bVII",
+      "label": "neutral",
+      "source": "V",
+      "target": "bVII",
+      "weight": 0.45,
     },
     {
       "data": {

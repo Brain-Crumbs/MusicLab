@@ -2,6 +2,8 @@ import type { FactorId } from "../model/GenerationConfig.js";
 import type { FactorContext } from "./FactorContext.js";
 import { BaseFactor, clamp, type RawFactorResult } from "./FactorEngine.js";
 import { styleTagWeight, motionWeight } from "../model/StyleProfile.js";
+import { StyleTag } from "../model/HarmonicEdge.js";
+import { SourceMode } from "../model/HarmonicFunction.js";
 
 /**
  * Clamp bounds on the log-score so a chord stacked with several strong style
@@ -32,12 +34,24 @@ export class StyleFactor extends BaseFactor {
   readonly id: FactorId = "style";
 
   protected computeRaw(context: FactorContext): RawFactorResult {
-    const { edge, config } = context;
+    const { edge, toChord, config } = context;
     const profile = config.styleProfile;
 
-    // Combine every style-tag multiplier on this edge with the motion multiplier.
+    // Effective style tags = the edge's own tags plus, implicitly, the Modal
+    // tag whenever the *destination* chord is borrowed from a modal source.
+    // Rewarding the destination's modal-ness (not just edges hand-tagged Modal)
+    // means *reaching* a modal chord like bVII is attractive under a modal
+    // profile even via an incoming edge that wasn't explicitly tagged Modal —
+    // boosting the exit edge (bVII→I) alone never helped if nothing led in.
+    // Using a Set also dedupes, so the Modal weight is applied at most once.
+    const tags = new Set<StyleTag>(edge.styleTags);
+    if (toChord.sourceMode === SourceMode.Modal) {
+      tags.add(StyleTag.Modal);
+    }
+
+    // Combine every effective style-tag multiplier with the motion multiplier.
     let combined = motionWeight(profile, edge.functionalMotion);
-    for (const tag of edge.styleTags) {
+    for (const tag of tags) {
       combined *= styleTagWeight(profile, tag);
     }
 

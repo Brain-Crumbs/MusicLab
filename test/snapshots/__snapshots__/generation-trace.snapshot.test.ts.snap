@@ -138,17 +138,24 @@ exports[`D7.6 — generation trace snapshot > matches the per-step distribution 
     "candidates": [
       {
         "edgeId": "V->I",
-        "probability": 0.9727,
+        "probability": 0.971802,
         "selected": true,
         "toChord": "I",
         "totalScore": 7.448678,
       },
       {
         "edgeId": "V->vi",
-        "probability": 0.026901,
+        "probability": 0.026876,
         "selected": false,
         "toChord": "vi",
         "totalScore": 4.578341,
+      },
+      {
+        "edgeId": "V->bVII",
+        "probability": 0.000923,
+        "selected": false,
+        "toChord": "bVII",
+        "totalScore": 1.881176,
       },
       {
         "edgeId": "V->V7",
@@ -165,7 +172,7 @@ exports[`D7.6 — generation trace snapshot > matches the per-step distribution 
         "totalScore": 0.514766,
       },
     ],
-    "entropy": 0.127584,
+    "entropy": 0.134838,
     "fromChord": "V",
     "modalEdgeId": "V->I",
     "selectedEdgeId": "V->I",

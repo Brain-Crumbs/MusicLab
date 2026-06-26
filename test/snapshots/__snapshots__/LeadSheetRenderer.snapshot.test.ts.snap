@@ -23,6 +23,6 @@ exports[`R8.9 — LeadSheetRenderer snapshot > renders the same run as concrete 
 `;
 
 exports[`R8.9 — LeadSheetRenderer snapshot > wraps by phrase length (8-bar template -> 8 bars per line) 1`] = `
-"| vi | ii | IV | V  | V7 | I  | V7 | I  |
-| vi | IV | ii | V7 | I  | vi | V7 | I  |"
+"| vi   | ii   | IV   | V7   | I    | V    | V7   | I    |
+| vi   | IV   | bVII | IV   | vii° | vi   | V7   | I    |"
 `;
