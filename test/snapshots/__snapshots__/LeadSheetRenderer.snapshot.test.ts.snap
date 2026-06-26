@@ -1,28 +1,28 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`R8.9 — LeadSheetRenderer snapshot > honours an explicit barsPerLine override 1`] = `
-"| IV   | V7   |
-| I    | vi   |
-| IV   | vii° |
-| I    | vi   |"
+"| vi  | ii  |
+| V   | I   |
+| iii | ii  |
+| V7  | I   |"
 `;
 
 exports[`R8.9 — LeadSheetRenderer snapshot > renders an 8-step run as a 4-bars-per-line Roman grid 1`] = `
-"| IV   | V7   | I    | vi   |
-| IV   | vii° | I    | vi   |"
+"| vi  | ii  | V   | I   |
+| iii | ii  | V7  | I   |"
 `;
 
 exports[`R8.9 — LeadSheetRenderer snapshot > renders concrete chords in another key 1`] = `
-"| C     | D7    | G     | Em    |
-| C     | F#dim | G     | Em    |"
+"| Em | Am | D  | G  |
+| Bm | Am | D7 | G  |"
 `;
 
 exports[`R8.9 — LeadSheetRenderer snapshot > renders the same run as concrete chords in C 1`] = `
-"| F    | G7   | C    | Am   |
-| F    | Bdim | C    | Am   |"
+"| Am | Dm | G  | C  |
+| Em | Dm | G7 | C  |"
 `;
 
 exports[`R8.9 — LeadSheetRenderer snapshot > wraps by phrase length (8-bar template -> 8 bars per line) 1`] = `
-"| IV   | I    | IV   | V7   | I    | V7   | I    | vi   |
-| ii   | V    | I    | bVII | IV   | ii   | V    | vi   |"
+"| vi | ii | IV | V  | V7 | I  | V7 | I  |
+| vi | IV | ii | V7 | I  | vi | V7 | I  |"
 `;

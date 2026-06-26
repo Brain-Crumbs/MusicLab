@@ -67,7 +67,8 @@ describe("buildFactorContext", () => {
   });
 
   it("builds the phrase frame for the position the candidate lands on", () => {
-    // Initial state phrasePosition 0 → candidate lands on position 1.
+    // The seed sits at the pre-phrase position (-1), so the first generated
+    // candidate lands on position 0 — the opening of the phrase.
     const config = createDefaultMvpConfig({ seed: 1 });
     const phraseEngine = new PhraseEngine(PhraseTemplates.fourBarResolutionPump);
     const state = InitialStateFactory.create(
@@ -77,7 +78,7 @@ describe("buildFactorContext", () => {
     );
     const edge = topology.getOutgoingEdges(chordId("I")).find((e) => e.to === chordId("IV"))!;
     const ctx = buildFactorContext({ edge, state, config, topology, phraseEngine });
-    expect(ctx.phrase.phrasePosition).toBe(1);
-    expect(ctx.phrase.targetTension).toBe(PhraseTemplates.fourBarResolutionPump.tensionCurve[1]);
+    expect(ctx.phrase.phrasePosition).toBe(0);
+    expect(ctx.phrase.targetTension).toBe(PhraseTemplates.fourBarResolutionPump.tensionCurve[0]);
   });
 });

@@ -7,6 +7,15 @@ import { TensionEstimator } from "./TensionEstimator.js";
 import { HarmonicRegionTracker } from "./HarmonicRegionTracker.js";
 
 /**
+ * Phrase position of the initial (seed) chord.
+ *
+ * The seed is a pre-phrase anchor, not an emitted step, so it sits one position
+ * *before* the phrase starts. The first generated chord therefore lands on
+ * position 0 and the emitted tension curve aligns with the template from index 0.
+ */
+const PRE_PHRASE_POSITION = -1;
+
+/**
  * Constructs the MusicalState that seeds the very first generation step.
  *
  * The initial state is fully populated — all counters, tension, cadence, and
@@ -29,9 +38,19 @@ export class InitialStateFactory {
     const chord = topology.getChord(initialChord);
     const harmonicRegion = HarmonicRegionTracker.classify(chord);
 
-    // Tension at position 0 comes purely from the chord's static identity
+    // The initial chord is a pre-phrase anchor: it seeds the run but is not
+    // itself an emitted step. Seating it at phrase position -1 means the first
+    // *generated* chord lands on position 0, so the emitted tension curve lines
+    // up with the template from index 0 (rather than being shifted by one). Both
+    // StateTransitioner and buildFactorContext advance the position by +1, so
+    // (-1 + 1) = 0 for the first step.
+    const phrasePosition = PRE_PHRASE_POSITION;
+
+    // Tension of the anchor comes purely from the chord's static identity
     // because there is no prior chord or incoming edge.
     const initialTension = TensionEstimator.estimate(chord, null, 0);
+    // The anchor's own target is undefined (it predates the phrase); fall back to
+    // the curve's opening value, which is also the target the first move aims at.
     const targetTension = phraseTemplate.tensionCurve[0] ?? initialTension;
 
     // Time-since counters start at 0 when the initial chord matches the
@@ -54,7 +73,7 @@ export class InitialStateFactory {
       recentChords,
       measureIndex: 0,
       phraseLength: phraseTemplate.phraseLength,
-      phrasePosition: 0,
+      phrasePosition,
       currentTension: initialTension,
       targetTension,
       tensionVelocity: 0,
