@@ -53,9 +53,7 @@ describe("X6.9 — seeded generation is deterministic", () => {
     const recordedSeed = original.trace.seed;
     expect(recordedSeed).toBeTypeOf("number");
 
-    const replay = createDefaultMvpGenerator({ seed: recordedSeed }).generate(
-      request,
-    );
+    const replay = createDefaultMvpGenerator({ seed: recordedSeed }).generate(request);
     expect(replay.chords).toEqual(original.chords);
   });
 });

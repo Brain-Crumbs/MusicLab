@@ -133,9 +133,7 @@ export interface GenerationStep {
 // ---------------------------------------------------------------------------
 
 /** Returns the CandidateScore for the edge that was selected, if present. */
-export function selectedCandidateScore(
-  step: GenerationStep,
-): CandidateScore | undefined {
+export function selectedCandidateScore(step: GenerationStep): CandidateScore | undefined {
   return step.candidates.find((c) => c.edge.id === step.selectedEdge.id);
 }
 

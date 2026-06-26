@@ -50,9 +50,7 @@ describe("loadGeneratorConfig", () => {
   });
 
   it("reads fields from a JSON config file", () => {
-    const deps = fileWith(
-      JSON.stringify({ key: "D", seed: 99, steps: 4, style: "folkWandering" }),
-    );
+    const deps = fileWith(JSON.stringify({ key: "D", seed: 99, steps: 4, style: "folkWandering" }));
     const loaded = loadGeneratorConfig({ config: "cfg.json" }, deps);
     expect(loaded.overrides.key).toBe("D");
     expect(loaded.overrides.seed).toBe(99);
@@ -95,9 +93,7 @@ describe("loadGeneratorConfig", () => {
 
   it("reports invalid JSON in a config file", () => {
     const deps = fileWith("{ not json");
-    expect(() => loadGeneratorConfig({ config: "cfg.json" }, deps)).toThrow(
-      /not valid JSON/,
-    );
+    expect(() => loadGeneratorConfig({ config: "cfg.json" }, deps)).toThrow(/not valid JSON/);
   });
 
   it("rejects a config file that is not a JSON object", () => {

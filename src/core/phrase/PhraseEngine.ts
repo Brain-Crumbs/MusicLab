@@ -1,8 +1,4 @@
-import {
-  targetTensionAt,
-  classifyPhrasePosition,
-  PhraseZone,
-} from "../model/PhraseTemplate.js";
+import { targetTensionAt, classifyPhrasePosition, PhraseZone } from "../model/PhraseTemplate.js";
 import type { PhraseTemplate } from "../model/PhraseTemplate.js";
 import type { HarmonicFunction } from "../model/HarmonicFunction.js";
 

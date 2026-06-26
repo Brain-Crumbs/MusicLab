@@ -8,14 +8,8 @@ export { RomanNumeralRenderer } from "./RomanNumeralRenderer.js";
 export type { RomanNumeralRenderOptions } from "./RomanNumeralRenderer.js";
 
 // Concrete chord renderer (R8.2)
-export {
-  ConcreteChordRenderer,
-  defaultMvpResolver,
-} from "./ConcreteChordRenderer.js";
-export type {
-  ChordResolver,
-  ConcreteChordSymbols,
-} from "./ConcreteChordRenderer.js";
+export { ConcreteChordRenderer, defaultMvpResolver } from "./ConcreteChordRenderer.js";
+export type { ChordResolver, ConcreteChordSymbols } from "./ConcreteChordRenderer.js";
 
 // Progression text renderer (R8.3)
 export { ProgressionTextRenderer } from "./ProgressionTextRenderer.js";

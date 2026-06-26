@@ -107,10 +107,7 @@ export const PhraseTemplates = {
  * Returns the target tension at a given position within the phrase.
  * Clamps position to valid range.
  */
-export function targetTensionAt(
-  template: PhraseTemplate,
-  phrasePosition: number,
-): number {
+export function targetTensionAt(template: PhraseTemplate, phrasePosition: number): number {
   const clamped = Math.max(0, Math.min(phrasePosition, template.phraseLength - 1));
   return template.tensionCurve[clamped] ?? 0;
 }
@@ -119,10 +116,7 @@ export function targetTensionAt(
  * Classifies a phrase position into a PhraseZone.
  * Pre-cadential zone covers the step immediately before the last position.
  */
-export function classifyPhrasePosition(
-  phrasePosition: number,
-  phraseLength: number,
-): PhraseZone {
+export function classifyPhrasePosition(phrasePosition: number, phraseLength: number): PhraseZone {
   if (phrasePosition === 0) return PhraseZone.Beginning;
   if (phrasePosition >= phraseLength - 1) return PhraseZone.Ending;
   if (phrasePosition >= phraseLength - 2) return PhraseZone.PreCadential;

@@ -6,12 +6,7 @@ import type {
   FunctionalMotion,
   SourceMode,
 } from "../../core/model/HarmonicFunction.js";
-import {
-  graphNode,
-  type GraphData,
-  type GraphEdge,
-  type GraphNode,
-} from "./GraphData.js";
+import { graphNode, type GraphData, type GraphEdge, type GraphNode } from "./GraphData.js";
 
 // ---------------------------------------------------------------------------
 // V9.2 — Topology graph data builder

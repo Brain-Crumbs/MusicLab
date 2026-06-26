@@ -32,8 +32,7 @@ export class InitialStateFactory {
     topology: HarmonicTopology,
   ): MusicalState {
     const { initialChord } = request;
-    const { phraseTemplate, key, mode, surpriseConfig, recentChordsWindow } =
-      config;
+    const { phraseTemplate, key, mode, surpriseConfig, recentChordsWindow } = config;
 
     const chord = topology.getChord(initialChord);
     const harmonicRegion = HarmonicRegionTracker.classify(chord);
@@ -56,12 +55,9 @@ export class InitialStateFactory {
     // Time-since counters start at 0 when the initial chord matches the
     // function, or 1 to indicate "it has been 1 step since we last saw that
     // function" (which is the minimum sensible value).
-    const timeSinceTonic =
-      chord.harmonicFunction === HarmonicFunction.Tonic ? 0 : 1;
-    const timeSinceDominant =
-      chord.harmonicFunction === HarmonicFunction.Dominant ? 0 : 1;
-    const timeSinceSubdominant =
-      chord.harmonicFunction === HarmonicFunction.Predominant ? 0 : 1;
+    const timeSinceTonic = chord.harmonicFunction === HarmonicFunction.Tonic ? 0 : 1;
+    const timeSinceDominant = chord.harmonicFunction === HarmonicFunction.Dominant ? 0 : 1;
+    const timeSinceSubdominant = chord.harmonicFunction === HarmonicFunction.Predominant ? 0 : 1;
 
     const recentChords = [initialChord].slice(0, recentChordsWindow);
 

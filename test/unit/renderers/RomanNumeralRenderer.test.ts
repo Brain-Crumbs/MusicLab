@@ -14,23 +14,17 @@ describe("RomanNumeralRenderer", () => {
 
   it("joins chord ids with the default ' - ' separator", () => {
     const renderer = new RomanNumeralRenderer();
-    expect(renderer.renderSequence(seq("I", "IV", "V7", "I"))).toBe(
-      "I - IV - V7 - I",
-    );
+    expect(renderer.renderSequence(seq("I", "IV", "V7", "I"))).toBe("I - IV - V7 - I");
   });
 
   it("preserves Roman numerals verbatim (no transposition or re-spelling)", () => {
     const renderer = new RomanNumeralRenderer();
-    expect(renderer.renderSequence(seq("bVII", "vii°", "ii", "V7"))).toBe(
-      "bVII - vii° - ii - V7",
-    );
+    expect(renderer.renderSequence(seq("bVII", "vii°", "ii", "V7"))).toBe("bVII - vii° - ii - V7");
   });
 
   it("honours a custom separator", () => {
     const renderer = new RomanNumeralRenderer({ separator: " | " });
-    expect(renderer.renderSequence(seq("I", "V", "vi", "IV"))).toBe(
-      "I | V | vi | IV",
-    );
+    expect(renderer.renderSequence(seq("I", "V", "vi", "IV"))).toBe("I | V | vi | IV");
   });
 
   it("renders a single chord with no separator", () => {

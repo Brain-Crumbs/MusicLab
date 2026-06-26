@@ -98,7 +98,5 @@ export function hasSeventh(chord: Chord): boolean {
 
 /** Returns true when the chord is borrowed (modal interchange or parallel). */
 export function isBorrowed(chord: Chord): boolean {
-  return (
-    chord.sourceMode !== undefined && chord.sourceMode !== SourceMode.Diatonic
-  );
+  return chord.sourceMode !== undefined && chord.sourceMode !== SourceMode.Diatonic;
 }

@@ -57,23 +57,49 @@ describe("MajorKeyTopologyBuilder — structure", () => {
 describe("MajorKeyTopologyBuilder — expected edges exist", () => {
   const expectedEdges: [string, string][] = [
     // From I
-    ["I", "IV"], ["I", "V"], ["I", "V7"], ["I", "ii"], ["I", "vi"], ["I", "iii"], ["I", "bVII"],
+    ["I", "IV"],
+    ["I", "V"],
+    ["I", "V7"],
+    ["I", "ii"],
+    ["I", "vi"],
+    ["I", "iii"],
+    ["I", "bVII"],
     // From ii
-    ["ii", "V"], ["ii", "V7"], ["ii", "IV"],
+    ["ii", "V"],
+    ["ii", "V7"],
+    ["ii", "IV"],
     // From iii
-    ["iii", "vi"], ["iii", "IV"], ["iii", "ii"],
+    ["iii", "vi"],
+    ["iii", "IV"],
+    ["iii", "ii"],
     // From IV
-    ["IV", "V"], ["IV", "V7"], ["IV", "I"], ["IV", "ii"], ["IV", "vii°"], ["IV", "bVII"],
+    ["IV", "V"],
+    ["IV", "V7"],
+    ["IV", "I"],
+    ["IV", "ii"],
+    ["IV", "vii°"],
+    ["IV", "bVII"],
     // From V
-    ["V", "I"], ["V", "vi"], ["V", "V7"], ["V", "IV"], ["V", "bVII"],
+    ["V", "I"],
+    ["V", "vi"],
+    ["V", "V7"],
+    ["V", "IV"],
+    ["V", "bVII"],
     // From V7
-    ["V7", "I"], ["V7", "vi"],
+    ["V7", "I"],
+    ["V7", "vi"],
     // From vi
-    ["vi", "ii"], ["vi", "IV"], ["vi", "V"], ["vi", "V7"], ["vi", "I"],
+    ["vi", "ii"],
+    ["vi", "IV"],
+    ["vi", "V"],
+    ["vi", "V7"],
+    ["vi", "I"],
     // From vii°
-    ["vii°", "I"], ["vii°", "vi"],
+    ["vii°", "I"],
+    ["vii°", "vi"],
     // From bVII
-    ["bVII", "I"], ["bVII", "IV"],
+    ["bVII", "I"],
+    ["bVII", "IV"],
   ];
 
   for (const [from, to] of expectedEdges) {
@@ -89,14 +115,14 @@ describe("MajorKeyTopologyBuilder — expected edges exist", () => {
 
 describe("MajorKeyTopologyBuilder — absent edges", () => {
   const absentEdges: [string, string][] = [
-    ["I", "I"],       // no self-loops
-    ["V7", "V"],      // dominant does not step back to plain triad
-    ["V7", "IV"],     // V7 does not retrogress to IV in this topology
-    ["V7", "bVII"],   // no dominant-to-modal edge
-    ["ii", "I"],      // ii does not resolve directly to tonic
-    ["bVII", "V"],    // no modal-to-dominant edge
-    ["bVII", "V7"],   // no modal-to-dominant-seventh edge
-    ["vii°", "IV"],   // leading-tone chord does not retrogress
+    ["I", "I"], // no self-loops
+    ["V7", "V"], // dominant does not step back to plain triad
+    ["V7", "IV"], // V7 does not retrogress to IV in this topology
+    ["V7", "bVII"], // no dominant-to-modal edge
+    ["ii", "I"], // ii does not resolve directly to tonic
+    ["bVII", "V"], // no modal-to-dominant edge
+    ["bVII", "V7"], // no modal-to-dominant-seventh edge
+    ["vii°", "IV"], // leading-tone chord does not retrogress
   ];
 
   for (const [from, to] of absentEdges) {
@@ -238,9 +264,9 @@ describe("MajorKeyTopologyBuilder — surprise cost", () => {
     expect(surpriseCost("ii", "V7")).toBe(0);
     expect(surpriseCost("I", "IV")).toBe(0);
     expect(surpriseCost("I", "V7")).toBe(0);
-    expect(surpriseCost("IV", "I")).toBe(0);   // override: plagal is common
-    expect(surpriseCost("V", "V7")).toBe(0);   // override: dominant intensification
-    expect(surpriseCost("I", "vi")).toBe(0);   // override: I-vi is very common
+    expect(surpriseCost("IV", "I")).toBe(0); // override: plagal is common
+    expect(surpriseCost("V", "V7")).toBe(0); // override: dominant intensification
+    expect(surpriseCost("I", "vi")).toBe(0); // override: I-vi is very common
   });
 
   it("modal and deceptive moves have low but nonzero surpriseCost", () => {

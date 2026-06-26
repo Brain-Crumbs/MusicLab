@@ -30,19 +30,19 @@ beforeAll(() => {
 });
 
 function makeInitialState(chord = "I"): MusicalState {
-  return InitialStateFactory.create(
-    { steps: 8, initialChord: chordId(chord) },
-    config,
-    topology,
-  );
+  return InitialStateFactory.create({ steps: 8, initialChord: chordId(chord) }, config, topology);
 }
 
 function transitionTo(state: MusicalState, from: string, to: string): MusicalState {
-  const edge = topology
-    .getOutgoingEdges(chordId(from))
-    .find((e) => e.to === chordId(to));
+  const edge = topology.getOutgoingEdges(chordId(from)).find((e) => e.to === chordId(to));
   if (!edge) throw new Error(`No edge ${from} -> ${to} in topology`);
-  return transitioner.applyTransition({ state, selectedEdge: edge, phraseEngine, config, topology });
+  return transitioner.applyTransition({
+    state,
+    selectedEdge: edge,
+    phraseEngine,
+    config,
+    topology,
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -107,11 +107,11 @@ describe("StateTransitioner — phrase position", () => {
   it("wraps phrasePosition back to 0 after phraseLength steps", () => {
     let state = makeInitialState("I");
     // 4-bar template: first emitted chord is position 0, then 1, 2, 3, then wraps.
-    state = transitionTo(state, "I", "IV");   // pos 0
-    state = transitionTo(state, "IV", "V7");  // pos 1
-    state = transitionTo(state, "V7", "I");   // pos 2
-    state = transitionTo(state, "I", "IV");   // pos 3
-    state = transitionTo(state, "IV", "V7");  // pos 0 (wraps)
+    state = transitionTo(state, "I", "IV"); // pos 0
+    state = transitionTo(state, "IV", "V7"); // pos 1
+    state = transitionTo(state, "V7", "I"); // pos 2
+    state = transitionTo(state, "I", "IV"); // pos 3
+    state = transitionTo(state, "IV", "V7"); // pos 0 (wraps)
     expect(state.phrasePosition).toBe(0);
   });
 
@@ -159,10 +159,7 @@ describe("StateTransitioner — tension", () => {
     for (let i = 0; i < walk.length; i++) {
       state = transitionTo(state, from, walk[i]!);
       expect(state.phrasePosition).toBe(i % template.phraseLength);
-      expect(state.targetTension).toBeCloseTo(
-        template.tensionCurve[i % template.phraseLength]!,
-        5,
-      );
+      expect(state.targetTension).toBeCloseTo(template.tensionCurve[i % template.phraseLength]!, 5);
       from = walk[i]!;
     }
   });
@@ -235,11 +232,7 @@ describe("StateTransitioner — harmonic region", () => {
   });
 
   it("lands in Tonic region after moving to I", () => {
-    const state = transitionTo(
-      transitionTo(makeInitialState("I"), "I", "V7"),
-      "V7",
-      "I",
-    );
+    const state = transitionTo(transitionTo(makeInitialState("I"), "I", "V7"), "V7", "I");
     expect(state.harmonicRegion).toBe(HarmonicRegion.Tonic);
   });
 
@@ -261,9 +254,9 @@ describe("StateTransitioner — harmonic region", () => {
 describe("StateTransitioner — time-since counters", () => {
   it("timeSinceTonic resets to 0 when landing on I", () => {
     let state = makeInitialState("I");
-    state = transitionTo(state, "I", "IV");  // tonic counter starts rising
+    state = transitionTo(state, "I", "IV"); // tonic counter starts rising
     state = transitionTo(state, "IV", "V7");
-    state = transitionTo(state, "V7", "I");  // back to tonic
+    state = transitionTo(state, "V7", "I"); // back to tonic
     expect(state.timeSinceTonic).toBe(0);
   });
 
@@ -321,9 +314,7 @@ describe("StateTransitioner — surprise budget", () => {
   it("depletes budget by the edge surpriseCost", () => {
     const state = makeInitialState("I");
     // bVII is a modal chord; I->bVII has non-zero surprise cost
-    const edge = topology
-      .getOutgoingEdges(chordId("I"))
-      .find((e) => e.to === chordId("bVII"));
+    const edge = topology.getOutgoingEdges(chordId("I")).find((e) => e.to === chordId("bVII"));
     if (!edge) return; // skip if edge doesn't exist in topology
     const next = transitioner.applyTransition({
       state,
@@ -345,9 +336,7 @@ describe("StateTransitioner — surprise budget", () => {
   it("replenishes budget by replenishRate each step", () => {
     // Use a common (zero-cost) edge and check replenishment
     const state = makeInitialState("I");
-    const edge = topology
-      .getOutgoingEdges(chordId("I"))
-      .find((e) => e.surpriseCost === 0);
+    const edge = topology.getOutgoingEdges(chordId("I")).find((e) => e.surpriseCost === 0);
     if (!edge) return;
     const next = transitioner.applyTransition({
       state,
@@ -443,9 +432,7 @@ describe("CadenceClassifier — static classify", () => {
   it("detects PerfectAuthentic for V7 -> I", () => {
     const fromChord = topology.getChord(chordId("V7"));
     const toChord = topology.getChord(chordId("I"));
-    const edge = topology
-      .getOutgoingEdges(chordId("V7"))
-      .find((e) => e.to === chordId("I"))!;
+    const edge = topology.getOutgoingEdges(chordId("V7")).find((e) => e.to === chordId("I"))!;
     const result = CadenceClassifier.classify(fromChord, toChord, edge, 1, 4, {
       isApproachingCadence: false,
     });
@@ -455,9 +442,7 @@ describe("CadenceClassifier — static classify", () => {
   it("sets isApproachingCadence when arriving at a dominant chord", () => {
     const fromChord = topology.getChord(chordId("I"));
     const toChord = topology.getChord(chordId("V7"));
-    const edge = topology
-      .getOutgoingEdges(chordId("I"))
-      .find((e) => e.to === chordId("V7"))!;
+    const edge = topology.getOutgoingEdges(chordId("I")).find((e) => e.to === chordId("V7"))!;
     const result = CadenceClassifier.classify(fromChord, toChord, edge, 1, 4, {
       isApproachingCadence: false,
     });
@@ -498,9 +483,7 @@ describe("SurpriseBudgetUpdater", () => {
   const sc = config.surpriseConfig;
 
   it("reduces budget by edge cost", () => {
-    const edge = topology
-      .getOutgoingEdges(chordId("I"))
-      .find((e) => e.surpriseCost > 0);
+    const edge = topology.getOutgoingEdges(chordId("I")).find((e) => e.surpriseCost > 0);
     if (!edge) return;
     const result = SurpriseBudgetUpdater.update(sc.initialBudget, edge, sc);
     expect(result).toBeLessThan(sc.initialBudget + sc.replenishRate);

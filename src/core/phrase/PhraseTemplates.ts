@@ -32,12 +32,8 @@ export function createPhraseTemplate(
   }
   for (const [i, v] of tensionCurve.entries()) {
     if (v < 0 || v > 1) {
-      throw new Error(
-        `createPhraseTemplate: tensionCurve[${i}] = ${v} is out of range [0, 1]`,
-      );
+      throw new Error(`createPhraseTemplate: tensionCurve[${i}] = ${v} is out of range [0, 1]`);
     }
   }
-  return name !== undefined
-    ? { phraseLength, tensionCurve, name }
-    : { phraseLength, tensionCurve };
+  return name !== undefined ? { phraseLength, tensionCurve, name } : { phraseLength, tensionCurve };
 }

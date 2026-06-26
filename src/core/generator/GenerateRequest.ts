@@ -45,9 +45,7 @@ export function validateGenerateRequest(request: GenerateRequest): void {
   const { steps, initialChord } = request;
 
   if (!Number.isInteger(steps) || steps <= 0) {
-    throw new Error(
-      `GenerateRequest.steps must be a positive integer, got ${steps}.`,
-    );
+    throw new Error(`GenerateRequest.steps must be a positive integer, got ${steps}.`);
   }
   if (steps > MAX_GENERATION_STEPS) {
     throw new Error(

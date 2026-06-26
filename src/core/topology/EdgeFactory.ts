@@ -18,7 +18,7 @@ const SEMITONE_TO_COF = [0, 7, 2, 9, 4, 11, 6, 1, 8, 3, 10, 5] as const;
 
 function cofPosition(chord: Chord): number {
   const natural = MAJOR_SCALE_SEMITONES[chord.scaleDegree - 1] ?? 0;
-  const semitones = ((natural + chord.accidentalOffset) % 12 + 12) % 12;
+  const semitones = (((natural + chord.accidentalOffset) % 12) + 12) % 12;
   return SEMITONE_TO_COF[semitones] ?? 0;
 }
 
@@ -200,8 +200,7 @@ export interface EdgeOverrides {
  */
 export class EdgeFactory {
   static create(from: Chord, to: Chord, overrides: EdgeOverrides = {}): HarmonicEdge {
-    const motion =
-      overrides.functionalMotion ?? FunctionalMotionClassifier.classify(from, to);
+    const motion = overrides.functionalMotion ?? FunctionalMotionClassifier.classify(from, to);
 
     return {
       id: edgeId(from.id, to.id),

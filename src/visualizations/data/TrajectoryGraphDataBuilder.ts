@@ -3,12 +3,7 @@ import type { FunctionalMotion } from "../../core/model/HarmonicFunction.js";
 import type { GenerationStep } from "../../core/model/GenerationStep.js";
 import type { GenerationTrace } from "../../core/model/GenerationTrace.js";
 import { selectedProbability } from "../../core/model/GenerationStep.js";
-import {
-  graphNode,
-  type GraphData,
-  type GraphEdge,
-  type GraphNode,
-} from "./GraphData.js";
+import { graphNode, type GraphData, type GraphEdge, type GraphNode } from "./GraphData.js";
 
 // ---------------------------------------------------------------------------
 // V9.3 — Trajectory graph data builder
@@ -55,10 +50,7 @@ export interface TrajectoryEdgeData {
 }
 
 /** The concrete graph shape this builder produces. */
-export type TrajectoryGraphData = GraphData<
-  TrajectoryNodeData,
-  TrajectoryEdgeData
->;
+export type TrajectoryGraphData = GraphData<TrajectoryNodeData, TrajectoryEdgeData>;
 
 /**
  * Builds {@link TrajectoryGraphData} from a {@link GenerationTrace}.
@@ -97,9 +89,7 @@ export class TrajectoryGraphDataBuilder {
 // Mapping (module-private)
 // ---------------------------------------------------------------------------
 
-function buildNodes(
-  path: readonly ChordId[],
-): readonly GraphNode<TrajectoryNodeData>[] {
+function buildNodes(path: readonly ChordId[]): readonly GraphNode<TrajectoryNodeData>[] {
   const visitCount = new Map<ChordId, number>();
   const firstVisitIndex = new Map<ChordId, number>();
 

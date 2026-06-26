@@ -52,11 +52,7 @@ function baseTensionFromFunction(harmonicFunction: HarmonicFunction): number {
  * All return values are clamped to [0, 1].
  */
 export class TensionEstimator {
-  estimate(
-    chord: Chord,
-    incomingEdge: HarmonicEdge | null,
-    previousTension: number,
-  ): number {
+  estimate(chord: Chord, incomingEdge: HarmonicEdge | null, previousTension: number): number {
     return TensionEstimator.estimate(chord, incomingEdge, previousTension);
   }
 
@@ -66,17 +62,13 @@ export class TensionEstimator {
     previousTension: number,
   ): number {
     const staticTension =
-      CHORD_STATIC_TENSION[chord.id] ??
-      baseTensionFromFunction(chord.harmonicFunction);
+      CHORD_STATIC_TENSION[chord.id] ?? baseTensionFromFunction(chord.harmonicFunction);
 
     if (incomingEdge === null) {
       return staticTension;
     }
 
-    const deltaBased = Math.max(
-      0,
-      Math.min(1, previousTension + incomingEdge.tensionDelta),
-    );
+    const deltaBased = Math.max(0, Math.min(1, previousTension + incomingEdge.tensionDelta));
 
     return Math.max(0, Math.min(1, staticTension * 0.7 + deltaBased * 0.3));
   }

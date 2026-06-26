@@ -100,9 +100,7 @@ export class CadenceFitFactor extends BaseFactor {
       const canReachDesired = topology
         .getOutgoingEdges(toChord.id)
         .some(
-          (next) =>
-            topology.getChord(next.to).harmonicFunction ===
-            phrase.desiredFinalFunction,
+          (next) => topology.getChord(next.to).harmonicFunction === phrase.desiredFinalFunction,
         );
       if (canReachDesired) {
         finalFunctionComponent = PRE_CADENTIAL_SETUP_BONUS;

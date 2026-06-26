@@ -102,21 +102,13 @@ export interface GenerationTrace {
 // ---------------------------------------------------------------------------
 
 /** Returns the step at the given index, or undefined if out of range. */
-export function stepAt(
-  trace: GenerationTrace,
-  index: number,
-): GenerationStep | undefined {
+export function stepAt(trace: GenerationTrace, index: number): GenerationStep | undefined {
   return trace.steps[index];
 }
 
 /** Returns steps where the surprise budget was meaningfully consumed. */
-export function surpriseSteps(
-  trace: GenerationTrace,
-  minCost = 0.5,
-): readonly GenerationStep[] {
-  return trace.steps.filter(
-    (s) => s.surpriseBudgetBefore - s.surpriseBudgetAfter >= minCost,
-  );
+export function surpriseSteps(trace: GenerationTrace, minCost = 0.5): readonly GenerationStep[] {
+  return trace.steps.filter((s) => s.surpriseBudgetBefore - s.surpriseBudgetAfter >= minCost);
 }
 
 /** Returns steps where actual tension deviated from target by more than threshold. */
@@ -124,18 +116,14 @@ export function highTensionErrorSteps(
   trace: GenerationTrace,
   threshold = 0.2,
 ): readonly GenerationStep[] {
-  return trace.steps.filter(
-    (s) => Math.abs(s.resultingTension - s.targetTension) > threshold,
-  );
+  return trace.steps.filter((s) => Math.abs(s.resultingTension - s.targetTension) > threshold);
 }
 
 /**
  * Computes a TensionSummary from raw steps.
  * Used by TraceRecorder; exposed here so tests can assert on the math.
  */
-export function computeTensionSummary(
-  steps: readonly GenerationStep[],
-): TensionSummary {
+export function computeTensionSummary(steps: readonly GenerationStep[]): TensionSummary {
   if (steps.length === 0) {
     return {
       meanTension: 0,

@@ -161,9 +161,6 @@ export function styleTagWeight(profile: StyleProfile, tag: StyleTag): number {
 }
 
 /** Returns the weight for a given FunctionalMotion in the profile (defaults to 1). */
-export function motionWeight(
-  profile: StyleProfile,
-  motion: FunctionalMotion,
-): number {
+export function motionWeight(profile: StyleProfile, motion: FunctionalMotion): number {
   return profile.motionWeights?.[motion] ?? 1;
 }

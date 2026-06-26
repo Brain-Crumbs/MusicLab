@@ -22,10 +22,7 @@ export class RepetitionTracker {
   }
 
   /** How many times the given chord has been played (0 if never). */
-  static getCount(
-    counts: Readonly<Record<ChordId, number>>,
-    chord: ChordId,
-  ): number {
+  static getCount(counts: Readonly<Record<ChordId, number>>, chord: ChordId): number {
     return counts[chord] ?? 0;
   }
 

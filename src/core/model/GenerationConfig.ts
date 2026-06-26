@@ -147,7 +147,10 @@ import { Mode as ModeEnum } from "./MusicalState.js";
 
 /** Partial overrides accepted by createDefaultMvpConfig. */
 export type MvpConfigOverrides = Partial<
-  Pick<GeneratorConfig, "key" | "mode" | "phraseTemplate" | "temperature" | "seed" | "factorWeights" | "styleProfile">
+  Pick<
+    GeneratorConfig,
+    "key" | "mode" | "phraseTemplate" | "temperature" | "seed" | "factorWeights" | "styleProfile"
+  >
 >;
 
 /**
