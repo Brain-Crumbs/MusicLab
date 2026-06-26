@@ -21,7 +21,7 @@ import { SvgTensionTimelineRenderer } from "../../src/visualizations/svg/SvgTens
 const SEED = 4242;
 const xmlParser = new DOMParser();
 
-function parseXml(xml: string) {
+function parseXml(xml: string): ReturnType<DOMParser["parseFromString"]> {
   return xmlParser.parseFromString(xml, "text/xml");
 }
 

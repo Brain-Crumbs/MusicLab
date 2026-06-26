@@ -84,7 +84,7 @@ describe("CircularLayout — circularLayout()", () => {
   it("coordinates have at most 2 decimal places by default", () => {
     const map = circularLayout(["I", "IV", "V7", "vi", "ii"]);
     for (const pt of map.values()) {
-      const decimals = (v: number) => (v.toString().split(".")[1] ?? "").length;
+      const decimals = (v: number): number => (v.toString().split(".")[1] ?? "").length;
       expect(decimals(pt.x)).toBeLessThanOrEqual(2);
       expect(decimals(pt.y)).toBeLessThanOrEqual(2);
     }

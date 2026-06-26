@@ -58,10 +58,7 @@ describe("TrajectoryGraphDataBuilder — node invariants", () => {
   it("nodes are ordered by first-visit index", () => {
     const steps = result.trace.steps;
     const firstVisit = new Map<string, number>();
-    const path = [
-      steps[0]!.previousState.currentChord,
-      ...steps.map((s) => s.selectedChord),
-    ];
+    const path = [steps[0]!.previousState.currentChord, ...steps.map((s) => s.selectedChord)];
     path.forEach((chord, i) => {
       if (!firstVisit.has(chord)) firstVisit.set(chord, i);
     });
@@ -84,10 +81,7 @@ describe("TrajectoryGraphDataBuilder — node invariants", () => {
 
   it("visitCount reflects how many times each chord was occupied", () => {
     const steps = result.trace.steps;
-    const path = [
-      steps[0]!.previousState.currentChord,
-      ...steps.map((s) => s.selectedChord),
-    ];
+    const path = [steps[0]!.previousState.currentChord, ...steps.map((s) => s.selectedChord)];
     const expectedCount = new Map<string, number>();
     for (const chord of path) {
       expectedCount.set(chord, (expectedCount.get(chord) ?? 0) + 1);

@@ -11,7 +11,7 @@ import type { GraphData } from "../../../src/visualizations/data/GraphData.js";
 
 const parser = new DOMParser();
 
-function parseXml(xml: string) {
+function parseXml(xml: string): ReturnType<DOMParser["parseFromString"]> {
   return parser.parseFromString(xml, "text/xml");
 }
 
