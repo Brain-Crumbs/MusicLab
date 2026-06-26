@@ -30,8 +30,7 @@ export function createPhraseTemplate(
       `createPhraseTemplate: tensionCurve length (${tensionCurve.length}) must equal phraseLength (${phraseLength})`,
     );
   }
-  for (let i = 0; i < tensionCurve.length; i++) {
-    const v = tensionCurve[i]!;
+  for (const [i, v] of tensionCurve.entries()) {
     if (v < 0 || v > 1) {
       throw new Error(
         `createPhraseTemplate: tensionCurve[${i}] = ${v} is out of range [0, 1]`,
