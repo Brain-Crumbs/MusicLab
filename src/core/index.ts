@@ -18,4 +18,4 @@ export * from "./probability/index.js";
 export * from "./generator/index.js";
 
 // Diagnostics (Wave 7)
-// export * from "./diagnostics/index.js";
+export * from "./diagnostics/index.js";
