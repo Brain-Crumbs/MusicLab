@@ -15,3 +15,7 @@ export { NoveltyFactor } from "./NoveltyFactor.js";
 export { SurpriseFactor } from "./SurpriseFactor.js";
 export { StyleFactor } from "./StyleFactor.js";
 export { MemoryFactor } from "./MemoryFactor.js";
+
+// Composite scorer (F4.12)
+export { CompositeFactorScorer } from "./CompositeFactorScorer.js";
+export type { CandidateScore } from "../model/GenerationStep.js";
