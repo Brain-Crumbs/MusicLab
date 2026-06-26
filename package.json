@@ -28,7 +28,8 @@
     "cli": "tsx src/cli/index.ts",
     "example:basic": "tsx examples/generate-basic-progression.ts",
     "example:folk": "tsx examples/generate-folk-progression.ts",
-    "example:debug": "tsx examples/debug-potential-field.ts"
+    "example:debug": "tsx examples/debug-potential-field.ts",
+    "example:visuals": "tsx examples/generate-visuals.ts"
   },
   "devDependencies": {
     "@types/node": "^22.20.0",

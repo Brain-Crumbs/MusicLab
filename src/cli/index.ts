@@ -8,6 +8,14 @@ import {
   CsvTraceRenderer,
   PhraseTemplates,
   StyleProfiles,
+  MajorKeyTopologyBuilder,
+  TopologyGraphDataBuilder,
+  TrajectoryGraphDataBuilder,
+  TensionTimelineDataBuilder,
+  MermaidGraphAdapter,
+  MermaidTrajectoryAdapter,
+  SvgTopologyRenderer,
+  SvgTensionTimelineRenderer,
 } from "../index.js";
 import { loadGeneratorConfig, type RawGeneratorOptions } from "./loadGeneratorConfig.js";
 
@@ -25,12 +33,24 @@ import { loadGeneratorConfig, type RawGeneratorOptions } from "./loadGeneratorCo
 const TRACE_FORMATS = ["json", "csv"] as const;
 type TraceFormat = (typeof TRACE_FORMATS)[number];
 
+const VIZ_TYPES = ["topology", "trajectory", "tension"] as const;
+type VizType = (typeof VIZ_TYPES)[number];
+
+const VIZ_FORMATS = ["mermaid", "svg"] as const;
+type VizFormat = (typeof VIZ_FORMATS)[number];
+
 interface CliArgs extends RawGeneratorOptions {
   readonly trace?: TraceFormat;
   /** File to write the trace to; stdout when omitted. */
   readonly traceOut?: string;
   /** "roman" | "concrete" | "both" — progression output style. */
   readonly format?: string;
+  /** Visualization type to emit: topology | trajectory | tension. */
+  readonly viz?: VizType;
+  /** Visualization output format: mermaid | svg. */
+  readonly vizFormat?: VizFormat;
+  /** File to write the visualization to; stdout when omitted. */
+  readonly vizOut?: string;
   readonly help?: boolean;
 }
 
@@ -77,6 +97,11 @@ function main(argv: readonly string[]): number {
       exportTrace(result, args.trace, args.traceOut);
     }
 
+    if (args.viz) {
+      const topology = new MajorKeyTopologyBuilder().build();
+      exportViz(result, topology, args.viz, args.vizFormat ?? "svg", args.vizOut);
+    }
+
     return 0;
   } catch (cause) {
     err(`Error: ${message(cause)}`);
@@ -84,8 +109,10 @@ function main(argv: readonly string[]): number {
   }
 }
 
+type GenerationResult = ReturnType<ReturnType<typeof createDefaultMvpGenerator>["generate"]>;
+
 function exportTrace(
-  result: ReturnType<ReturnType<typeof createDefaultMvpGenerator>["generate"]>,
+  result: GenerationResult,
   format: TraceFormat,
   traceOut: string | undefined,
 ): void {
@@ -97,6 +124,44 @@ function exportTrace(
   if (traceOut) {
     writeFileSync(traceOut, rendered + "\n", "utf8");
     err(`Trace (${format}) written to ${traceOut}`);
+  } else {
+    out(rendered);
+  }
+}
+
+function exportViz(
+  result: GenerationResult,
+  topology: ReturnType<MajorKeyTopologyBuilder["build"]>,
+  vizType: VizType,
+  vizFormat: VizFormat,
+  vizOut: string | undefined,
+): void {
+  let rendered: string;
+
+  if (vizType === "topology") {
+    const graphData = new TopologyGraphDataBuilder().build(topology);
+    rendered =
+      vizFormat === "mermaid"
+        ? new MermaidGraphAdapter().render(graphData)
+        : new SvgTopologyRenderer().render(graphData);
+  } else if (vizType === "trajectory") {
+    const graphData = new TrajectoryGraphDataBuilder().build(result.trace);
+    if (vizFormat === "svg") {
+      rendered = new SvgTopologyRenderer().render(graphData);
+    } else {
+      rendered = new MermaidTrajectoryAdapter().render(graphData);
+    }
+  } else {
+    const timelineData = new TensionTimelineDataBuilder().build(result.trace);
+    if (vizFormat === "mermaid") {
+      err("Note: tension timeline is not available in Mermaid format; using SVG.");
+    }
+    rendered = new SvgTensionTimelineRenderer().render(timelineData);
+  }
+
+  if (vizOut) {
+    writeFileSync(vizOut, rendered + "\n", "utf8");
+    err(`Visualization (${vizType}/${vizFormat}) written to ${vizOut}`);
   } else {
     out(rendered);
   }
@@ -166,6 +231,21 @@ function assignFlag(result: Record<string, unknown>, name: string, value: string
     case "trace-out":
       result.traceOut = value;
       break;
+    case "viz":
+      if (!VIZ_TYPES.includes(value as VizType)) {
+        throw new Error(`--viz must be one of ${VIZ_TYPES.join(" | ")}, got "${value}".`);
+      }
+      result.viz = value;
+      break;
+    case "viz-format":
+      if (!VIZ_FORMATS.includes(value as VizFormat)) {
+        throw new Error(`--viz-format must be one of ${VIZ_FORMATS.join(" | ")}, got "${value}".`);
+      }
+      result.vizFormat = value;
+      break;
+    case "viz-out":
+      result.vizOut = value;
+      break;
     case "temperature":
     case "seed":
     case "steps":
@@ -216,12 +296,18 @@ function usage(): string {
     "  --config <path>      JSON file with any of the above fields",
     "  --trace <format>     Also export the full trace: json | csv",
     "  --trace-out <path>   Write the trace to a file instead of stdout",
+    "  --viz <type>         Emit a visualization: topology | trajectory | tension",
+    "  --viz-format <fmt>   Visualization format: mermaid | svg (default svg)",
+    "  --viz-out <path>     Write the visualization to a file instead of stdout",
     "  --help               Show this help",
     "",
     "Examples:",
     "  musiclab --steps 8 --key G --seed 42",
     "  musiclab --style modalSurprising --phrase eightBarLongArc",
     "  musiclab --seed 42 --trace csv --trace-out run.csv",
+    "  musiclab --seed 42 --viz topology --viz-format mermaid",
+    "  musiclab --seed 42 --viz topology --viz-format svg --viz-out topology.svg",
+    "  musiclab --seed 42 --viz tension --viz-out tension.svg",
   ].join("\n");
 }
 
