@@ -10,13 +10,15 @@ import type { Chord } from "../model/Chord.js";
  * Builds the immutable harmonic topology for a generic major key.
  *
  * The graph contains the nine MVP chords (I ii iii IV V V7 vi vii° bVII) and
- * thirty-three directed edges covering:
+ * thirty-five directed edges covering:
  *
  *   - All standard functional chains: T→PD, T→D, PD→D, D→T
  *   - Deceptive resolutions: V→vi, V7→vi, vii°→vi
  *   - Plagal cadence: IV→I
  *   - Dominant intensification: V→V7
  *   - Modal return and departure: bVII→I, I→bVII
+ *   - Modal approach (edges that *lead into* bVII): IV→bVII, V→bVII, so bVII is
+ *     reachable away from the tonic and its modal colour actually surfaces
  *   - Common tonic-area motion: I↔vi, iii→vi
  *   - Blues/folk back-cycle: V→IV
  *   - Mediant connections: iii→IV, iii→ii
@@ -86,6 +88,14 @@ export class MajorKeyTopologyBuilder implements TopologyBuilder {
       e(IV, I,    { baseAffinity: 0.65, surpriseCost: 0.0 }),
       e(IV, ii),   // PD→PD — both are predominant; pivot between subdominants
       e(IV, viio), // PD→D  — leading-tone diminished approach
+      // IV→bVII: modal approach (Bb is the IV-of-IV); a descending-fifth folk
+      //   move that *leads into* bVII so it can be reached away from the tonic
+      e(IV, bVII, {
+        functionalMotion: FunctionalMotion.Neutral,
+        baseAffinity: 0.5,
+        surpriseCost: 0.2,
+        styleTags: [StyleTag.Folk, StyleTag.Modal],
+      }),
 
       // -----------------------------------------------------------------------
       // From V  (Dominant)
@@ -97,6 +107,14 @@ export class MajorKeyTopologyBuilder implements TopologyBuilder {
       e(V, V7,   { baseAffinity: 0.7, surpriseCost: 0.0 }),
       // V→IV: back-cycle retrogression; idiomatic in blues and folk (V-IV-I)
       e(V, IV,   { styleTags: [StyleTag.BluesRock, StyleTag.Folk] }),
+      // V→bVII: chromatic-mediant modal deflection (G→Bb); a surprising rock/
+      //   modal approach into bVII, costed a touch higher than IV→bVII
+      e(V, bVII, {
+        functionalMotion: FunctionalMotion.Neutral,
+        baseAffinity: 0.45,
+        surpriseCost: 0.25,
+        styleTags: [StyleTag.Folk, StyleTag.Modal],
+      }),
 
       // -----------------------------------------------------------------------
       // From V7  (Dominant seventh)

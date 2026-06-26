@@ -28,8 +28,8 @@ describe("MajorKeyTopologyBuilder — structure", () => {
     expect(topology.chordCount).toBe(9);
   });
 
-  it("contains exactly 33 edges", () => {
-    expect(topology.edgeCount).toBe(33);
+  it("contains exactly 35 edges", () => {
+    expect(topology.edgeCount).toBe(35);
   });
 
   it("all 9 MVP chord IDs are accessible via getChord", () => {
@@ -63,9 +63,9 @@ describe("MajorKeyTopologyBuilder — expected edges exist", () => {
     // From iii
     ["iii", "vi"], ["iii", "IV"], ["iii", "ii"],
     // From IV
-    ["IV", "V"], ["IV", "V7"], ["IV", "I"], ["IV", "ii"], ["IV", "vii°"],
+    ["IV", "V"], ["IV", "V7"], ["IV", "I"], ["IV", "ii"], ["IV", "vii°"], ["IV", "bVII"],
     // From V
-    ["V", "I"], ["V", "vi"], ["V", "V7"], ["V", "IV"],
+    ["V", "I"], ["V", "vi"], ["V", "V7"], ["V", "IV"], ["V", "bVII"],
     // From V7
     ["V7", "I"], ["V7", "vi"],
     // From vi
@@ -397,6 +397,16 @@ describe("MajorKeyTopologyBuilder — style tags", () => {
     expect(tags("bVII", "IV")).toContain(StyleTag.Folk);
     expect(tags("bVII", "IV")).toContain(StyleTag.Modal);
   });
+
+  it("IV→bVII carries Folk and Modal tags (modal approach)", () => {
+    expect(tags("IV", "bVII")).toContain(StyleTag.Folk);
+    expect(tags("IV", "bVII")).toContain(StyleTag.Modal);
+  });
+
+  it("V→bVII carries Folk and Modal tags (modal approach)", () => {
+    expect(tags("V", "bVII")).toContain(StyleTag.Folk);
+    expect(tags("V", "bVII")).toContain(StyleTag.Modal);
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -451,8 +461,13 @@ describe("MajorKeyTopologyBuilder — edge invariants", () => {
     }
   });
 
-  it("bVII has at least one incoming edge (is reachable)", () => {
+  it("bVII is reachable away from the tonic, not just from I", () => {
+    // Regression for #16: bVII used to have a single incoming edge (I→bVII),
+    // so its modal colour almost never surfaced once the music left the tonic.
     const incoming = topology.getAllEdges().filter((e) => e.to === "bVII");
-    expect(incoming.length).toBeGreaterThan(0);
+    const sources = incoming.map((e) => e.from);
+    expect(incoming.length).toBeGreaterThan(1);
+    expect(sources).toContain("IV");
+    expect(sources).toContain("V");
   });
 });

@@ -29,10 +29,12 @@ exports[`A10.7 — Mermaid topology snapshot > matches the serialised Mermaid fl
     n3 -->|"retrogression"| n0
     n3 -->|"neutral"| n1
     n3 -->|"predominant_to_dominant"| n7
+    n3 -->|"neutral"| n8
     n4 -->|"dominant_to_tonic"| n0
     n4 -->|"deceptive"| n6
     n4 -->|"neutral"| n5
     n4 -->|"retrogression"| n3
+    n4 -->|"neutral"| n8
     n5 -->|"dominant_to_tonic"| n0
     n5 -->|"deceptive"| n6
     n6 -->|"tonic_to_subdominant"| n1
