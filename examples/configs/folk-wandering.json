@@ -1,0 +1,10 @@
+{
+  "key": "G",
+  "mode": "major",
+  "style": "folkWandering",
+  "phrase": "eightBarLongArc",
+  "temperature": 0.9,
+  "steps": 8,
+  "initialChord": "I",
+  "seed": 2024
+}

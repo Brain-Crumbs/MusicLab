@@ -1,0 +1,9 @@
+{
+  "key": "C",
+  "style": "classicalCadential",
+  "phrase": "fourBarResolutionPump",
+  "temperature": 0.25,
+  "steps": 8,
+  "initialChord": "I",
+  "seed": 42
+}

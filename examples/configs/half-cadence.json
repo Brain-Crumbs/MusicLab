@@ -1,0 +1,10 @@
+{
+  "key": "E",
+  "mode": "major",
+  "style": "folkStable",
+  "phrase": "fourBarHalfCadence",
+  "temperature": 0.8,
+  "steps": 4,
+  "initialChord": "I",
+  "seed": 555
+}

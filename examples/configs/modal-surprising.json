@@ -1,0 +1,10 @@
+{
+  "key": "D",
+  "mode": "mixolydian",
+  "style": "modalSurprising",
+  "phrase": "eightBarMidPeak",
+  "temperature": 1.1,
+  "steps": 12,
+  "initialChord": "I",
+  "seed": 777
+}

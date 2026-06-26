@@ -1,0 +1,6 @@
+{
+  "_comment": "Intentionally broken — used to demonstrate the CLI's validation and error messages.",
+  "key": "H",
+  "style": "doesNotExist",
+  "steps": -3
+}
