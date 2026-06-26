@@ -5,10 +5,8 @@ import type { GeneratorDependencies } from "./GeneratorDependencies.js";
 import type { GenerateRequest } from "./GenerateRequest.js";
 import { validateGenerateRequest } from "./GenerateRequest.js";
 import { StepGenerator } from "./StepGenerator.js";
-import {
-  buildGenerationTrace,
-  type GenerationResult,
-} from "./GenerationResult.js";
+import type { GenerationResult } from "./GenerationResult.js";
+import { TraceRecorder } from "../diagnostics/TraceRecorder.js";
 
 /**
  * A single, stateful generation run.
@@ -98,7 +96,7 @@ export class GenerationSession {
       chords: steps.map((s) => s.selectedChord),
       steps,
       finalState: this.state,
-      trace: buildGenerationTrace({
+      trace: TraceRecorder.record({
         steps,
         finalState: this.state,
         ...(this.seed !== undefined && { seed: this.seed }),
