@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { createDefaultMvpGenerator } from "../../src/core/generator/createDefaultMvpGenerator.js";
 import { chordId } from "../../src/core/model/ChordId.js";
+import { PhraseTemplates } from "../../src/core/phrase/PhraseTemplates.js";
 import { TensionTimelineDataBuilder } from "../../src/visualizations/data/TensionTimelineDataBuilder.js";
 
 /**
@@ -64,5 +65,44 @@ describe("V9.8 — tension timeline data snapshot", () => {
     for (const d of timeline) {
       expect(d.tensionError).toBeCloseTo(d.actualTension - d.targetTension, 9);
     }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Regression — issue #15: phrase position must not be off by one.
+//
+// The initial chord is a pre-phrase anchor, so the first *emitted* step must
+// target the curve's opening value (index 0) and a phraseLength-long run must
+// end on the curve's final value — not be shifted forward by one position.
+// ---------------------------------------------------------------------------
+
+describe("tension timeline aligns with the template curve from index 0", () => {
+  const template = PhraseTemplates.fourBarResolutionPump;
+
+  it("emits target tensions equal to the template curve, in order", () => {
+    const result = createDefaultMvpGenerator({
+      phraseTemplate: template,
+      seed: SEED,
+    }).generate({ steps: template.phraseLength, initialChord: chordId("I") });
+
+    const targets = new TensionTimelineDataBuilder()
+      .build(result.trace)
+      .map((d) => d.targetTension);
+
+    expect(targets).toEqual([...template.tensionCurve]);
+  });
+
+  it("first emitted step targets the curve opening and the last targets the resolution", () => {
+    const result = createDefaultMvpGenerator({
+      phraseTemplate: template,
+      seed: SEED,
+    }).generate({ steps: template.phraseLength, initialChord: chordId("I") });
+
+    const steps = result.trace.steps;
+    expect(steps[0]!.targetTension).toBeCloseTo(template.tensionCurve[0]!, 9); // 0.2
+    expect(steps[steps.length - 1]!.targetTension).toBeCloseTo(
+      template.tensionCurve[template.phraseLength - 1]!,
+      9,
+    ); // 0.1
   });
 });

@@ -12,32 +12,32 @@ exports[`A10.8 — SVG tension timeline snapshot > matches the rendered SVG 1`] 
     <line x1="48" y1="24" x2="48" y2="280" stroke="#94a3b8" stroke-width="1" />
     <line x1="48" y1="280" x2="616" y2="280" stroke="#94a3b8" stroke-width="1" />
   </g>
-  <polyline fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="6 4" points="48,152 129.14,62.4 210.29,254.4 291.43,228.8 372.57,152 453.71,62.4 534.86,254.4 616,228.8" />
-  <polyline fill="none" stroke="#ef4444" stroke-width="2" points="48,164.8 129.14,49.6 210.29,254.4 291.43,241.6 372.57,164.8 453.71,62.4 534.86,254.4 616,241.6" />
+  <polyline fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="6 4" points="48,228.8 129.14,152 210.29,62.4 291.43,254.4 372.57,228.8 453.71,152 534.86,62.4 616,254.4" />
+  <polyline fill="none" stroke="#ef4444" stroke-width="2" points="48,241.6 129.14,152 210.29,100.8 291.43,254.4 372.57,216 453.71,152 534.86,49.6 616,254.4" />
   <g class="markers">
-    <circle cx="48" cy="152" r="3" fill="#3b82f6" />
-    <circle cx="48" cy="164.8" r="3" fill="#ef4444" />
+    <circle cx="48" cy="228.8" r="3" fill="#3b82f6" />
+    <circle cx="48" cy="241.6" r="3" fill="#ef4444" />
     <text x="48" y="296" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">0</text>
-    <circle cx="129.14" cy="62.4" r="3" fill="#3b82f6" />
-    <circle cx="129.14" cy="49.6" r="3" fill="#ef4444" />
+    <circle cx="129.14" cy="152" r="3" fill="#3b82f6" />
+    <circle cx="129.14" cy="152" r="3" fill="#ef4444" />
     <text x="129.14" y="296" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">1</text>
-    <circle cx="210.29" cy="254.4" r="3" fill="#3b82f6" />
-    <circle cx="210.29" cy="254.4" r="3" fill="#ef4444" />
+    <circle cx="210.29" cy="62.4" r="3" fill="#3b82f6" />
+    <circle cx="210.29" cy="100.8" r="3" fill="#ef4444" />
     <text x="210.29" y="296" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">2</text>
-    <circle cx="291.43" cy="228.8" r="3" fill="#3b82f6" />
-    <circle cx="291.43" cy="241.6" r="3" fill="#ef4444" />
+    <circle cx="291.43" cy="254.4" r="3" fill="#3b82f6" />
+    <circle cx="291.43" cy="254.4" r="3" fill="#ef4444" />
     <text x="291.43" y="296" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">3</text>
-    <circle cx="372.57" cy="152" r="3" fill="#3b82f6" />
-    <circle cx="372.57" cy="164.8" r="3" fill="#ef4444" />
+    <circle cx="372.57" cy="228.8" r="3" fill="#3b82f6" />
+    <circle cx="372.57" cy="216" r="3" fill="#ef4444" />
     <text x="372.57" y="296" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">4</text>
-    <circle cx="453.71" cy="62.4" r="3" fill="#3b82f6" />
-    <circle cx="453.71" cy="62.4" r="3" fill="#ef4444" />
+    <circle cx="453.71" cy="152" r="3" fill="#3b82f6" />
+    <circle cx="453.71" cy="152" r="3" fill="#ef4444" />
     <text x="453.71" y="296" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">5</text>
-    <circle cx="534.86" cy="254.4" r="3" fill="#3b82f6" />
-    <circle cx="534.86" cy="254.4" r="3" fill="#ef4444" />
+    <circle cx="534.86" cy="62.4" r="3" fill="#3b82f6" />
+    <circle cx="534.86" cy="49.6" r="3" fill="#ef4444" />
     <text x="534.86" y="296" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">6</text>
-    <circle cx="616" cy="228.8" r="3" fill="#3b82f6" />
-    <circle cx="616" cy="241.6" r="3" fill="#ef4444" />
+    <circle cx="616" cy="254.4" r="3" fill="#3b82f6" />
+    <circle cx="616" cy="254.4" r="3" fill="#ef4444" />
     <text x="616" y="296" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">7</text>
   </g>
   <g class="legend" font-family="sans-serif" font-size="11" fill="#334155">

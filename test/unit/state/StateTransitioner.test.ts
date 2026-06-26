@@ -93,16 +93,25 @@ describe("StateTransitioner — phrase position", () => {
   it("increments phrasePosition by 1", () => {
     const state = makeInitialState("I");
     const next = transitionTo(state, "I", "IV");
-    expect(next.phrasePosition).toBe(1);
+    expect(next.phrasePosition).toBe(state.phrasePosition + 1);
+  });
+
+  it("lands the first emitted chord on phrase position 0", () => {
+    // The seed sits at the pre-phrase position (-1), so the first transition
+    // produces position 0 — the start of the phrase.
+    const state = makeInitialState("I");
+    const next = transitionTo(state, "I", "IV");
+    expect(next.phrasePosition).toBe(0);
   });
 
   it("wraps phrasePosition back to 0 after phraseLength steps", () => {
     let state = makeInitialState("I");
-    // 4-bar template: positions 0, 1, 2, 3 then back to 0
-    state = transitionTo(state, "I", "IV");   // pos 1
-    state = transitionTo(state, "IV", "V7");  // pos 2
-    state = transitionTo(state, "V7", "I");   // pos 3
-    state = transitionTo(state, "I", "IV");   // pos 0 (wraps)
+    // 4-bar template: first emitted chord is position 0, then 1, 2, 3, then wraps.
+    state = transitionTo(state, "I", "IV");   // pos 0
+    state = transitionTo(state, "IV", "V7");  // pos 1
+    state = transitionTo(state, "V7", "I");   // pos 2
+    state = transitionTo(state, "I", "IV");   // pos 3
+    state = transitionTo(state, "IV", "V7");  // pos 0 (wraps)
     expect(state.phrasePosition).toBe(0);
   });
 
@@ -140,13 +149,22 @@ describe("StateTransitioner — tension", () => {
     expect(stateAtI.currentTension).toBeLessThan(stateAtV7.currentTension);
   });
 
-  it("targetTension follows the phrase template curve", () => {
+  it("targetTension follows the phrase template curve from index 0", () => {
     let state = makeInitialState("I");
     const template = PhraseTemplates.fourBarResolutionPump;
 
-    // Position 0 → 1: target should reflect curve[1]
-    state = transitionTo(state, "I", "IV");
-    expect(state.targetTension).toBeCloseTo(template.tensionCurve[1]!, 5);
+    // First emitted chord lands on position 0 → target should reflect curve[0].
+    const walk = ["IV", "V7", "I", "IV"];
+    let from = "I";
+    for (let i = 0; i < walk.length; i++) {
+      state = transitionTo(state, from, walk[i]!);
+      expect(state.phrasePosition).toBe(i % template.phraseLength);
+      expect(state.targetTension).toBeCloseTo(
+        template.tensionCurve[i % template.phraseLength]!,
+        5,
+      );
+      from = walk[i]!;
+    }
   });
 
   it("tensionVelocity reflects change from previous step", () => {
