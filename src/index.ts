@@ -11,4 +11,4 @@ export * from "./core/index.js";
 export * from "./renderers/index.js";
 
 // Visualization data builders (no UI dependencies)
-// export * from "./visualizations/index.js";
+export * from "./visualizations/index.js";

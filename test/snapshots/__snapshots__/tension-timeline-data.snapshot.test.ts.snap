@@ -1,0 +1,62 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`V9.8 — tension timeline data snapshot > matches the recorded tension timeline 1`] = `
+[
+  {
+    "actualTension": 0.45,
+    "chord": "IV",
+    "stepIndex": 0,
+    "targetTension": 0.5,
+    "tensionError": -0.05,
+  },
+  {
+    "actualTension": 0.9,
+    "chord": "V7",
+    "stepIndex": 1,
+    "targetTension": 0.85,
+    "tensionError": 0.05,
+  },
+  {
+    "actualTension": 0.1,
+    "chord": "I",
+    "stepIndex": 2,
+    "targetTension": 0.1,
+    "tensionError": -0,
+  },
+  {
+    "actualTension": 0.15,
+    "chord": "vi",
+    "stepIndex": 3,
+    "targetTension": 0.2,
+    "tensionError": -0.05,
+  },
+  {
+    "actualTension": 0.45,
+    "chord": "IV",
+    "stepIndex": 4,
+    "targetTension": 0.5,
+    "tensionError": -0.05,
+  },
+  {
+    "actualTension": 0.85,
+    "chord": "vii°",
+    "stepIndex": 5,
+    "targetTension": 0.85,
+    "tensionError": 0,
+  },
+  {
+    "actualTension": 0.1,
+    "chord": "I",
+    "stepIndex": 6,
+    "targetTension": 0.1,
+    "tensionError": -0,
+  },
+  {
+    "actualTension": 0.15,
+    "chord": "vi",
+    "stepIndex": 7,
+    "targetTension": 0.2,
+    "tensionError": -0.05,
+  },
+]
+`;
