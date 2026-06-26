@@ -12,3 +12,6 @@ export * from "./renderers/index.js";
 
 // Visualization data builders (no UI dependencies)
 export * from "./visualizations/index.js";
+
+// MIDI model contracts
+export * from "./midi/index.js";
