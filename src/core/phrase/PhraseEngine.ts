@@ -4,6 +4,7 @@ import {
   PhraseZone,
 } from "../model/PhraseTemplate.js";
 import type { PhraseTemplate } from "../model/PhraseTemplate.js";
+import type { HarmonicFunction } from "../model/HarmonicFunction.js";
 
 /**
  * A snapshot of the phrase context at a single generation step.
@@ -17,6 +18,13 @@ export interface PhraseFrame {
   readonly targetTension: number;
   readonly isAtEnd: boolean;
   readonly isPreCadential: boolean;
+  /**
+   * The harmonic function the phrase wants to land on at its final position,
+   * carried through from the template.  Only meaningful when `isAtEnd` is true;
+   * CadenceFitFactor reads it to bias the final chord toward the intended
+   * cadence type.  Undefined when the template specifies no target.
+   */
+  readonly desiredFinalFunction?: HarmonicFunction;
 }
 
 /**
@@ -57,7 +65,7 @@ export class PhraseEngine {
    */
   buildFrame(phrasePosition: number): PhraseFrame {
     const len = this._template.phraseLength;
-    return {
+    const frame: PhraseFrame = {
       phrasePosition,
       phraseLength: len,
       zone: this.classifyPosition(phrasePosition),
@@ -65,5 +73,10 @@ export class PhraseEngine {
       isAtEnd: phrasePosition >= len - 1,
       isPreCadential: phrasePosition === len - 2 && len > 2,
     };
+    // Only attach the target function when the template specifies one, to
+    // satisfy exactOptionalPropertyTypes.
+    return this._template.desiredFinalFunction !== undefined
+      ? { ...frame, desiredFinalFunction: this._template.desiredFinalFunction }
+      : frame;
   }
 }

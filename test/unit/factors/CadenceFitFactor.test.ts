@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { CadenceFitFactor } from "../../../src/core/factors/CadenceFitFactor.js";
 import { contextFor } from "../../fixtures/factorFixtures.js";
+import { PhraseTemplates } from "../../../src/core/phrase/PhraseTemplates.js";
 
 const factor = new CadenceFitFactor();
 
@@ -43,5 +44,49 @@ describe("CadenceFitFactor", () => {
       }),
     ).rawScore;
     expect(withApproach).toBeGreaterThan(withoutApproach);
+  });
+
+  // ---------------------------------------------------------------------------
+  // desiredFinalFunction — half-cadence targeting (issue #19)
+  // ---------------------------------------------------------------------------
+  describe("desiredFinalFunction (half cadence)", () => {
+    const halfCadence = PhraseTemplates.fourBarHalfCadence; // wants Dominant ending
+
+    it("rewards a dominant ending over a tonic ending when the template wants a half cadence", () => {
+      // phrasePosition 2 → candidate lands on the final position (3, Ending zone).
+      const dominantEnding = factor.score(
+        contextFor("ii", "V", { template: halfCadence, state: { phrasePosition: 2 } }),
+      ).rawScore;
+      const tonicEnding = factor.score(
+        contextFor("V7", "I", { template: halfCadence, state: { phrasePosition: 2 } }),
+      ).rawScore;
+      expect(dominantEnding).toBeGreaterThan(tonicEnding);
+    });
+
+    it("scores the same dominant ending higher under a half-cadence template than a resolution template", () => {
+      const underHalfCadence = factor.score(
+        contextFor("ii", "V", { template: halfCadence, state: { phrasePosition: 2 } }),
+      ).rawScore;
+      // fourBarResolutionPump sets no desiredFinalFunction, so no final-function bias.
+      const underResolution = factor.score(
+        contextFor("ii", "V", {
+          template: PhraseTemplates.fourBarResolutionPump,
+          state: { phrasePosition: 2 },
+        }),
+      ).rawScore;
+      expect(underHalfCadence).toBeGreaterThan(underResolution);
+    });
+
+    it("at the pre-cadential step, prefers a chord that can reach the dominant over a dead end", () => {
+      // phrasePosition 1 → candidate lands on the pre-cadential position (2).
+      // V can intensify to V7 (still dominant); V7/vii° only fall to a tonic.
+      const setsUpDominant = factor.score(
+        contextFor("ii", "V", { template: halfCadence, state: { phrasePosition: 1 } }),
+      ).rawScore;
+      const deadEnd = factor.score(
+        contextFor("ii", "V7", { template: halfCadence, state: { phrasePosition: 1 } }),
+      ).rawScore;
+      expect(setsUpDominant).toBeGreaterThan(deadEnd);
+    });
   });
 });

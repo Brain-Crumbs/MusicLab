@@ -1,3 +1,5 @@
+import { HarmonicFunction } from "./HarmonicFunction.js";
+
 /**
  * Zone within a phrase — used by PhrasePositionClassifier and PhraseFitFactor
  * to understand where the music currently sits in the arc.
@@ -28,6 +30,18 @@ export interface PhraseTemplate {
   readonly tensionCurve: readonly number[];
   /** Human-readable label for debugging and preset selection. */
   readonly name?: string;
+  /**
+   * Optional harmonic function the phrase should *land on* at its final
+   * position.  A tension level alone (via {@link tensionCurve}) is necessary
+   * but not sufficient to pin the ending to a specific harmonic function:
+   * several chords can share a tension level.  Setting this biases the final
+   * step toward an intended cadence type — e.g. `Dominant` for a half cadence
+   * that should rest on V, or `Tonic` for an authentic/full close.
+   *
+   * Consumed by CadenceFitFactor, which rewards the final chord when its
+   * function matches and discourages endings on other functions.
+   */
+  readonly desiredFinalFunction?: HarmonicFunction;
 }
 
 // ---------------------------------------------------------------------------
@@ -73,6 +87,9 @@ const fourBarHalfCadence: PhraseTemplate = {
   name: "fourBarHalfCadence",
   phraseLength: 4,
   tensionCurve: [0.2, 0.45, 0.7, 0.6],
+  // A half cadence rests *on* the dominant; the tension level alone won't pull
+  // the final chord to V, so target the dominant function explicitly.
+  desiredFinalFunction: HarmonicFunction.Dominant,
 };
 
 export const PhraseTemplates = {
