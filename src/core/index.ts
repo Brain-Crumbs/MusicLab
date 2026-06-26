@@ -2,7 +2,7 @@
 // export * from "./model/index.js";
 
 // Topology construction (Wave 2)
-// export * from "./topology/index.js";
+export * from "./topology/index.js";
 
 // Phrase, tension, and state (Wave 3)
 // export * from "./phrase/index.js";
