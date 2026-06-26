@@ -9,7 +9,7 @@ export * from "./phrase/index.js";
 export * from "./state/index.js";
 
 // Factor engines (Wave 4)
-// export * from "./factors/index.js";
+export * from "./factors/index.js";
 
 // Probability engine (Wave 5)
 // export * from "./probability/index.js";
