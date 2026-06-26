@@ -37,3 +37,11 @@ export {
   type FactorWeights,
   type SurpriseConfig,
 } from "../model/GenerationConfig.js";
+
+// Key context and style presets callers select by name (e.g. from a CLI flag or
+// an example script).  These live in the model layer, which has no barrel of its
+// own, so they are surfaced here alongside the other config essentials.
+export { Mode } from "../model/MusicalState.js";
+export type { MusicalKey } from "../model/MusicalState.js";
+export { StyleProfiles } from "../model/StyleProfile.js";
+export type { StyleProfile, StyleProfileId } from "../model/StyleProfile.js";
