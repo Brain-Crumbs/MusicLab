@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MermaidTrajectoryAdapter — snapshot > matches the trajectory Mermaid snapshot 1`] = `
+"flowchart LR
+    n0["I"]:::start
+    n1["vi"]
+    n2["ii"]
+    n3["V"]
+    n4["iii"]
+    n5["V7"]
+    n0 -->|"0"| n1
+    n1 -->|"1"| n2
+    n2 -->|"2"| n3
+    n3 -->|"3"| n0
+    n0 -->|"4"| n4
+    n4 -->|"5"| n2
+    n2 -->|"6"| n5
+    n5 -->|"7"| n0
+    classDef start fill:#cfe8ff,stroke:#3b82f6,stroke-width:2px;
+    linkStyle 2,4 stroke:#ef4444,stroke-width:2px;"
+`;

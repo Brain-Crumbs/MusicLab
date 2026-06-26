@@ -10,6 +10,7 @@ export default defineConfig({
       "test/property/**/*.test.ts",
       "test/smoke/**/*.test.ts",
       "test/snapshots/**/*.test.ts",
+      "test/visual/**/*.test.ts",
     ],
     coverage: {
       provider: "v8",
