@@ -1,0 +1,9 @@
+{
+  "key": "C",
+  "style": "folkWandering",
+  "phrase": "eightBarLongArc",
+  "temperature": 2.0,
+  "steps": 12,
+  "initialChord": "I",
+  "seed": 42
+}

@@ -1,0 +1,10 @@
+{
+  "key": "A",
+  "mode": "major",
+  "style": "folkStable",
+  "phrase": "eightBarLongArc",
+  "temperature": 0.8,
+  "steps": 16,
+  "initialChord": "I",
+  "seed": 909
+}

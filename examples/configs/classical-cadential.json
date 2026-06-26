@@ -1,0 +1,10 @@
+{
+  "key": "Bb",
+  "mode": "major",
+  "style": "classicalCadential",
+  "phrase": "fourBarResolutionPump",
+  "temperature": 0.6,
+  "steps": 8,
+  "initialChord": "I",
+  "seed": 1791
+}

@@ -1,0 +1,10 @@
+{
+  "key": "G",
+  "mode": "major",
+  "style": "folkStable",
+  "phrase": "fourBarResolutionPump",
+  "temperature": 0.7,
+  "steps": 8,
+  "initialChord": "I",
+  "seed": 2024
+}
