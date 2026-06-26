@@ -2,7 +2,7 @@
 // Uncomment each line as the corresponding wave is implemented.
 
 // Core engine
-// export * from "./core/index.js";
+export * from "./core/index.js";
 
 // Presets
 // export * from "./presets/index.js";

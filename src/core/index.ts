@@ -15,7 +15,7 @@ export * from "./factors/index.js";
 export * from "./probability/index.js";
 
 // Generator (Wave 6)
-// export * from "./generator/index.js";
+export * from "./generator/index.js";
 
 // Diagnostics (Wave 7)
 // export * from "./diagnostics/index.js";
