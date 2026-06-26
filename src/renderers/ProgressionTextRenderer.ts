@@ -74,7 +74,12 @@ export class ProgressionTextRenderer {
    */
   render(result: GenerationResult, options: ProgressionTextOptions = {}): string {
     const key = options.key ?? result.finalState.key;
-    return this.renderSequence(result.chords, { ...options, key });
+    // Prepend the starting chord so the displayed progression begins on the
+    // requested initialChord, not on the first transition target.
+    return this.renderSequence([result.initialChord, ...result.chords], {
+      ...options,
+      key,
+    });
   }
 
   /** Renders an explicit chord sequence (used by render and reusable directly). */

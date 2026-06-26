@@ -55,6 +55,14 @@ export interface GenerationTrace {
   /** All steps in order, index 0 = first chord chosen. */
   readonly steps: readonly GenerationStep[];
 
+  /**
+   * The chord the run started on — the starting state, not an emitted step, so
+   * it is not part of `chordSequence`.  Undefined only for an empty (0-step)
+   * trace where no starting chord can be recovered.  Renderers prepend it so
+   * the displayed progression begins on the requested chord.
+   */
+  readonly initialChord?: ChordId;
+
   /** The chord ids in selection order — convenient shorthand over steps. */
   readonly chordSequence: readonly ChordId[];
 

@@ -35,14 +35,23 @@ export class RomanNumeralRenderer {
     this.separator = options.separator ?? DEFAULT_SEPARATOR;
   }
 
-  /** Renders the chord sequence of a finished generation run. */
+  /**
+   * Renders the full progression of a finished run: the starting chord followed
+   * by every chosen transition target.  Prepending `initialChord` means a
+   * request for N steps shows the starting chord plus N moves, so `--initial I`
+   * actually begins on `I` rather than on the first transition.
+   */
   render(result: GenerationResult): string {
-    return this.renderSequence(result.chords);
+    return this.renderSequence([result.initialChord, ...result.chords]);
   }
 
-  /** Renders a trace's chord sequence (same output as {@link render}). */
+  /** Renders a trace's progression (same output as {@link render}). */
   renderTrace(trace: GenerationTrace): string {
-    return this.renderSequence(trace.chordSequence);
+    const chords =
+      trace.initialChord !== undefined
+        ? [trace.initialChord, ...trace.chordSequence]
+        : trace.chordSequence;
+    return this.renderSequence(chords);
   }
 
   /** Renders an explicit list of chord ids. */

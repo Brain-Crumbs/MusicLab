@@ -31,6 +31,12 @@ import {
 export interface RecordTraceArgs {
   readonly steps: readonly GenerationStep[];
   readonly finalState: MusicalState;
+  /**
+   * The chord the run started on.  When omitted it is recovered from the first
+   * step's previous state, so traces assembled directly from steps still record
+   * where the progression began.
+   */
+  readonly initialChord?: ChordId;
   /** Seed used for the run, recorded so it can be replayed exactly. */
   readonly seed?: number;
   /** ISO-8601 timestamp; defaults to now if omitted. */
@@ -55,6 +61,10 @@ export class TraceRecorder {
     const { steps, finalState } = args;
 
     const chordSequence: ChordId[] = steps.map((s) => s.selectedChord);
+    // Prefer the explicitly-supplied starting chord; otherwise recover it from
+    // the first step's previous state.  Undefined only for an empty run.
+    const initialChord =
+      args.initialChord ?? steps[0]?.previousState.currentChord;
 
     const cadenceEvents: CadenceEvent[] = [];
     for (const step of steps) {
@@ -72,6 +82,7 @@ export class TraceRecorder {
       steps,
       chordSequence,
       finalState,
+      ...(initialChord !== undefined && { initialChord }),
       totalSteps: steps.length,
       generatedAt: args.generatedAt ?? new Date().toISOString(),
       ...(args.seed !== undefined && { seed: args.seed }),

@@ -13,6 +13,14 @@ import { TraceRecorder } from "../diagnostics/TraceRecorder.js";
  * the generator.
  */
 export interface GenerationResult {
+  /**
+   * The chord the run started on (the requested `initialChord`).  This is the
+   * starting *state*, not an emitted step, so it is intentionally *not* part of
+   * `chords` (which holds only the N transition targets).  Renderers prepend it
+   * so the displayed progression begins on the chord the caller asked for.
+   */
+  readonly initialChord: ChordId;
+
   /** The chosen chord ids in order — `steps.map(s => s.selectedChord)`. */
   readonly chords: readonly ChordId[];
 
