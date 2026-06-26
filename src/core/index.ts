@@ -12,7 +12,7 @@ export * from "./state/index.js";
 export * from "./factors/index.js";
 
 // Probability engine (Wave 5)
-// export * from "./probability/index.js";
+export * from "./probability/index.js";
 
 // Generator (Wave 6)
 // export * from "./generator/index.js";
