@@ -1,0 +1,184 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MIDI-4.7 — exported MidiTrack intent snapshot > matches the recorded pre-export MidiTrack 1`] = `
+{
+  "bpm": 90,
+  "channel": 0,
+  "notes": [
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 60,
+      "startBeat": 0,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 64,
+      "startBeat": 0,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 67,
+      "startBeat": 0,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 65,
+      "startBeat": 4,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 69,
+      "startBeat": 4,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 72,
+      "startBeat": 4,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 60,
+      "startBeat": 8,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 64,
+      "startBeat": 8,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 67,
+      "startBeat": 8,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 67,
+      "startBeat": 12,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 71,
+      "startBeat": 12,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 74,
+      "startBeat": 12,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 60,
+      "startBeat": 16,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 64,
+      "startBeat": 16,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 67,
+      "startBeat": 16,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 69,
+      "startBeat": 20,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 72,
+      "startBeat": 20,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 76,
+      "startBeat": 20,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 62,
+      "startBeat": 24,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 65,
+      "startBeat": 24,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 69,
+      "startBeat": 24,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 67,
+      "startBeat": 28,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 71,
+      "startBeat": 28,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 74,
+      "startBeat": 28,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 77,
+      "startBeat": 28,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 60,
+      "startBeat": 32,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 64,
+      "startBeat": 32,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 67,
+      "startBeat": 32,
+      "velocity": 80,
+    },
+  ],
+  "ppq": 480,
+  "program": 0,
+  "timeSignature": [
+    4,
+    4,
+  ],
+}
+`;

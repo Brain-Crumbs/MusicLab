@@ -16,6 +16,8 @@ import {
   MermaidTrajectoryAdapter,
   SvgTopologyRenderer,
   SvgTensionTimelineRenderer,
+  exportMidiFromGeneration,
+  type MidiExportConfig,
 } from "../index.js";
 import { loadGeneratorConfig, type RawGeneratorOptions } from "./loadGeneratorConfig.js";
 
@@ -51,6 +53,10 @@ interface CliArgs extends RawGeneratorOptions {
   readonly vizFormat?: VizFormat;
   /** File to write the visualization to; stdout when omitted. */
   readonly vizOut?: string;
+  /** File to write the exported `.mid` to. */
+  readonly midi?: string;
+  /** Tempo for the exported MIDI, in beats per minute. */
+  readonly bpm?: number;
   readonly help?: boolean;
 }
 
@@ -100,6 +106,10 @@ function main(argv: readonly string[]): number {
     if (args.viz) {
       const topology = new MajorKeyTopologyBuilder().build();
       exportViz(result, topology, args.viz, args.vizFormat ?? "svg", args.vizOut);
+    }
+
+    if (args.midi) {
+      exportMidi(result, overrides, args.bpm, args.midi);
     }
 
     return 0;
@@ -165,6 +175,26 @@ function exportViz(
   } else {
     out(rendered);
   }
+}
+
+function exportMidi(
+  result: GenerationResult,
+  overrides: ReturnType<typeof loadGeneratorConfig>["overrides"],
+  bpm: number | undefined,
+  midiOut: string,
+): void {
+  // Mirror the export to the key/mode the run actually used; `bpm` is a
+  // MIDI-only control with no generator equivalent, so it comes straight off
+  // the flag.  Undefined fields fall through to DefaultMidiExportConfig.
+  const midiOverrides: Partial<MidiExportConfig> = {
+    ...(overrides.key !== undefined ? { key: overrides.key } : {}),
+    ...(overrides.mode !== undefined ? { mode: overrides.mode } : {}),
+    ...(bpm !== undefined ? { bpm } : {}),
+  };
+
+  const bytes = exportMidiFromGeneration(result, midiOverrides);
+  writeFileSync(midiOut, bytes);
+  err(`MIDI written to ${midiOut}`);
 }
 
 // ---------------------------------------------------------------------------
@@ -246,6 +276,17 @@ function assignFlag(result: Record<string, unknown>, name: string, value: string
     case "viz-out":
       result.vizOut = value;
       break;
+    case "midi":
+      result.midi = value;
+      break;
+    case "bpm": {
+      const bpm = parseNumber(name, value);
+      if (bpm <= 0) {
+        throw new Error(`--bpm must be a positive number, got "${value}".`);
+      }
+      result.bpm = bpm;
+      break;
+    }
     case "temperature":
     case "seed":
     case "steps":
@@ -299,6 +340,8 @@ function usage(): string {
     "  --viz <type>         Emit a visualization: topology | trajectory | tension",
     "  --viz-format <fmt>   Visualization format: mermaid | svg (default svg)",
     "  --viz-out <path>     Write the visualization to a file instead of stdout",
+    "  --midi <path>        Export the progression as a .mid file",
+    "  --bpm <n>            Tempo for the exported MIDI, >0 (default 90)",
     "  --help               Show this help",
     "",
     "Examples:",
@@ -308,6 +351,7 @@ function usage(): string {
     "  musiclab --seed 42 --viz topology --viz-format mermaid",
     "  musiclab --seed 42 --viz topology --viz-format svg --viz-out topology.svg",
     "  musiclab --seed 42 --viz tension --viz-out tension.svg",
+    "  musiclab --seed 42 --midi out.mid --key G --bpm 110",
   ].join("\n");
 }
 
