@@ -15,3 +15,6 @@ export * from "./visualizations/index.js";
 
 // MIDI model contracts
 export * from "./midi/index.js";
+
+// Audio synth (dependency-free PCM rendering)
+export * from "./audio/index.js";
