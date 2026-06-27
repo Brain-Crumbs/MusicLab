@@ -29,7 +29,7 @@ export class ChordVoicingEngine {
 
     return chordTones.map((pc, i) => {
       if (i === 0) return rootMidi;
-      const interval = ((pc - rootPc) % 12 + 12) % 12;
+      const interval = (((pc - rootPc) % 12) + 12) % 12;
       return rootMidi + interval;
     });
   }

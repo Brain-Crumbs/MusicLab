@@ -50,9 +50,7 @@ export class ChordToneResolver {
     const rootPc = KeySignatureMapper.pitchClassFor(key, chord.scaleDegree, chord.accidentalOffset);
     const baseIntervals = QUALITY_INTERVALS[chord.quality] ?? [0, 4, 7];
 
-    const tones: PitchClass[] = baseIntervals.map((interval) =>
-      toPitchClass(rootPc + interval),
-    );
+    const tones: PitchClass[] = baseIntervals.map((interval) => toPitchClass(rootPc + interval));
 
     for (const ext of chord.extensions) {
       const interval = EXTENSION_INTERVALS[ext];

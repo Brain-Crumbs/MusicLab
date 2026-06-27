@@ -15,11 +15,7 @@ export class KeySignatureMapper {
    * @param scaleDegree    - Diatonic scale degree (1–7).
    * @param accidentalOffset - Semitone adjustment: 0 = diatonic, -1 = flatted, +1 = sharped.
    */
-  static pitchClassFor(
-    key: MusicalKey,
-    scaleDegree: number,
-    accidentalOffset: number,
-  ): PitchClass {
+  static pitchClassFor(key: MusicalKey, scaleDegree: number, accidentalOffset: number): PitchClass {
     const keyPc = KEY_PITCH_CLASS[key];
     const degreeOffset = MAJOR_SCALE_SEMITONES[scaleDegree - 1] ?? 0;
     return toPitchClass(keyPc + degreeOffset + accidentalOffset);
