@@ -1,0 +1,433 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MIDI-3.6 — scheduled MidiTrack snapshot > matches the recorded ChordTimeline 1`] = `
+{
+  "beatsPerMeasure": 4,
+  "bpm": 90,
+  "events": [
+    {
+      "chordId": "I",
+      "chordName": "C",
+      "durationBeats": 4,
+      "notes": [
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 60,
+          "startBeat": 0,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 64,
+          "startBeat": 0,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 67,
+          "startBeat": 0,
+          "velocity": 80,
+        },
+      ],
+      "startBeat": 0,
+    },
+    {
+      "chordId": "vi",
+      "chordName": "Am",
+      "durationBeats": 4,
+      "notes": [
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 69,
+          "startBeat": 4,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 72,
+          "startBeat": 4,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 76,
+          "startBeat": 4,
+          "velocity": 80,
+        },
+      ],
+      "startBeat": 4,
+    },
+    {
+      "chordId": "ii",
+      "chordName": "Dm",
+      "durationBeats": 4,
+      "notes": [
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 62,
+          "startBeat": 8,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 65,
+          "startBeat": 8,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 69,
+          "startBeat": 8,
+          "velocity": 80,
+        },
+      ],
+      "startBeat": 8,
+    },
+    {
+      "chordId": "V",
+      "chordName": "G",
+      "durationBeats": 4,
+      "notes": [
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 67,
+          "startBeat": 12,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 71,
+          "startBeat": 12,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 74,
+          "startBeat": 12,
+          "velocity": 80,
+        },
+      ],
+      "startBeat": 12,
+    },
+    {
+      "chordId": "I",
+      "chordName": "C",
+      "durationBeats": 4,
+      "notes": [
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 60,
+          "startBeat": 16,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 64,
+          "startBeat": 16,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 67,
+          "startBeat": 16,
+          "velocity": 80,
+        },
+      ],
+      "startBeat": 16,
+    },
+    {
+      "chordId": "iii",
+      "chordName": "Em",
+      "durationBeats": 4,
+      "notes": [
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 64,
+          "startBeat": 20,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 67,
+          "startBeat": 20,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 71,
+          "startBeat": 20,
+          "velocity": 80,
+        },
+      ],
+      "startBeat": 20,
+    },
+    {
+      "chordId": "ii",
+      "chordName": "Dm",
+      "durationBeats": 4,
+      "notes": [
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 62,
+          "startBeat": 24,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 65,
+          "startBeat": 24,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 69,
+          "startBeat": 24,
+          "velocity": 80,
+        },
+      ],
+      "startBeat": 24,
+    },
+    {
+      "chordId": "V7",
+      "chordName": "G7",
+      "durationBeats": 4,
+      "notes": [
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 67,
+          "startBeat": 28,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 71,
+          "startBeat": 28,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 74,
+          "startBeat": 28,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 77,
+          "startBeat": 28,
+          "velocity": 80,
+        },
+      ],
+      "startBeat": 28,
+    },
+    {
+      "chordId": "I",
+      "chordName": "C",
+      "durationBeats": 4,
+      "notes": [
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 60,
+          "startBeat": 32,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 64,
+          "startBeat": 32,
+          "velocity": 80,
+        },
+        {
+          "durationBeats": 4,
+          "midiNoteNumber": 67,
+          "startBeat": 32,
+          "velocity": 80,
+        },
+      ],
+      "startBeat": 32,
+    },
+  ],
+}
+`;
+
+exports[`MIDI-3.6 — scheduled MidiTrack snapshot > matches the recorded MidiTrack 1`] = `
+{
+  "bpm": 90,
+  "channel": 0,
+  "notes": [
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 60,
+      "startBeat": 0,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 64,
+      "startBeat": 0,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 67,
+      "startBeat": 0,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 69,
+      "startBeat": 4,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 72,
+      "startBeat": 4,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 76,
+      "startBeat": 4,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 62,
+      "startBeat": 8,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 65,
+      "startBeat": 8,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 69,
+      "startBeat": 8,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 67,
+      "startBeat": 12,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 71,
+      "startBeat": 12,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 74,
+      "startBeat": 12,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 60,
+      "startBeat": 16,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 64,
+      "startBeat": 16,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 67,
+      "startBeat": 16,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 64,
+      "startBeat": 20,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 67,
+      "startBeat": 20,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 71,
+      "startBeat": 20,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 62,
+      "startBeat": 24,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 65,
+      "startBeat": 24,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 69,
+      "startBeat": 24,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 67,
+      "startBeat": 28,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 71,
+      "startBeat": 28,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 74,
+      "startBeat": 28,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 77,
+      "startBeat": 28,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 60,
+      "startBeat": 32,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 64,
+      "startBeat": 32,
+      "velocity": 80,
+    },
+    {
+      "durationBeats": 4,
+      "midiNoteNumber": 67,
+      "startBeat": 32,
+      "velocity": 80,
+    },
+  ],
+  "ppq": 480,
+  "program": 0,
+  "timeSignature": [
+    4,
+    4,
+  ],
+}
+`;

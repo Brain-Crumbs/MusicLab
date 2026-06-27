@@ -13,3 +13,8 @@ export { ChordToneResolver } from "./mapping/ChordToneResolver.js";
 export type { ChordToneResolverInput } from "./mapping/ChordToneResolver.js";
 export { ChordVoicingEngine } from "./mapping/ChordVoicingEngine.js";
 export type { ChordVoicingInput } from "./mapping/ChordVoicingEngine.js";
+export type { ChordTimeline } from "./timeline/ChordTimeline.js";
+export { ChordTimelineBuilder } from "./timeline/ChordTimelineBuilder.js";
+export type { ChordTimelineBuildInput } from "./timeline/ChordTimelineBuilder.js";
+export { MidiEventScheduler } from "./timeline/MidiEventScheduler.js";
+export type { MidiScheduleInput } from "./timeline/MidiEventScheduler.js";
