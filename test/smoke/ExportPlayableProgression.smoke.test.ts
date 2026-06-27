@@ -9,6 +9,7 @@ import { exportPlayableChordProgression } from "../../src/playback/exportPlayabl
 import { ChordTimelineBuilder } from "../../src/midi/timeline/ChordTimelineBuilder.js";
 import { MidiEventScheduler } from "../../src/midi/timeline/MidiEventScheduler.js";
 import { resolveMidiExportConfig } from "../../src/midi/model/MidiExportConfig.js";
+import { RomanNumeralRenderer } from "../../src/renderers/RomanNumeralRenderer.js";
 import type { GenerationResult } from "../../src/core/generator/GenerationResult.js";
 import type { MidiTrack } from "../../src/midi/model/MidiTrack.js";
 
@@ -89,6 +90,22 @@ describe("PLAY-7.5 — exportPlayableChordProgression yields a hearable progress
     };
 
     expect(trackFrom().notes).toEqual(trackFrom().notes);
+  });
+
+  it("the printed progression matches what is exported (issue #47)", () => {
+    // The example prints `RomanNumeralRenderer().render(result)`; the export
+    // schedules `[result.initialChord, ...result.chords]`.  Both must describe
+    // the same N+1-chord progression that begins on `initialChord` — otherwise
+    // the console output drifts from the .mid/.wav (the original bug).
+    const config = resolveMidiExportConfig(overrides);
+    const timeline = ChordTimelineBuilder.build({ result, config });
+
+    const printed = new RomanNumeralRenderer().render(result);
+    const exported = timeline.events.map((e) => e.chordId).join(" - ");
+
+    expect(printed).toBe(exported);
+    expect(timeline.events).toHaveLength(result.chords.length + 1);
+    expect(timeline.events[0]?.chordId).toBe(result.initialChord);
   });
 
   it("works with default config (no overrides)", () => {

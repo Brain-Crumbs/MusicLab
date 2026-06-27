@@ -20,6 +20,7 @@ import {
   chordId,
   Mode,
   exportPlayableChordProgression,
+  RomanNumeralRenderer,
 } from "../src/index.js";
 
 const SEED = 42;
@@ -32,8 +33,10 @@ mkdirSync(OUT_DIR, { recursive: true });
 const generator = createDefaultMvpGenerator({ key: "C", temperature: 0.8, seed: SEED });
 const result = generator.generate({ steps: 8, initialChord: chordId("I") });
 
+// Print the same sequence that is exported: the renderer (like the timeline
+// builder) prepends `result.initialChord`, so this matches the .mid/.wav.
 console.log(`Generated (seed ${SEED}):`);
-console.log(`  ${result.chords.join(" - ")}\n`);
+console.log(`  ${new RomanNumeralRenderer().render(result)}\n`);
 
 // ── Export both files from ONE shared track ───────────────────────────────
 
