@@ -18,3 +18,7 @@ export { ChordTimelineBuilder } from "./timeline/ChordTimelineBuilder.js";
 export type { ChordTimelineBuildInput } from "./timeline/ChordTimelineBuilder.js";
 export { MidiEventScheduler } from "./timeline/MidiEventScheduler.js";
 export type { MidiScheduleInput } from "./timeline/MidiEventScheduler.js";
+export type { MidiFileExporter } from "./export/MidiFileExporter.js";
+export { MidiWriterFileExporter } from "./export/MidiWriterFileExporter.js";
+export { exportMidiFromGeneration } from "./export/exportMidiFromGeneration.js";
+export type { ExportMidiOptions } from "./export/exportMidiFromGeneration.js";
