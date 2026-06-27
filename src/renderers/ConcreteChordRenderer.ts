@@ -2,6 +2,11 @@ import type { Chord } from "../core/model/Chord.js";
 import { ChordExtension, ChordQuality } from "../core/model/Chord.js";
 import type { ChordId } from "../core/model/ChordId.js";
 import type { MusicalKey } from "../core/model/MusicalState.js";
+import {
+  KEY_PITCH_CLASS,
+  LETTER_PITCH_CLASS,
+  MAJOR_SCALE_SEMITONES,
+} from "../core/model/PitchClasses.js";
 import { ChordCatalog } from "../core/topology/ChordCatalog.js";
 
 // ---------------------------------------------------------------------------
@@ -27,41 +32,6 @@ export interface ChordResolver {
 
 /** Diatonic letter names in scale order. */
 const LETTERS = ["C", "D", "E", "F", "G", "A", "B"] as const;
-
-/** Natural (no-accidental) pitch class of each letter. */
-const LETTER_PITCH_CLASS: Readonly<Record<string, number>> = {
-  C: 0,
-  D: 2,
-  E: 4,
-  F: 5,
-  G: 7,
-  A: 9,
-  B: 11,
-};
-
-/** Pitch class (0–11) of each supported key root. */
-const KEY_PITCH_CLASS: Readonly<Record<MusicalKey, number>> = {
-  C: 0,
-  "C#": 1,
-  Db: 1,
-  D: 2,
-  "D#": 3,
-  Eb: 3,
-  E: 4,
-  F: 5,
-  "F#": 6,
-  Gb: 6,
-  G: 7,
-  "G#": 8,
-  Ab: 8,
-  A: 9,
-  "A#": 10,
-  Bb: 10,
-  B: 11,
-};
-
-/** Semitones above the tonic for each major-scale degree (1–7). */
-const MAJOR_SCALE_SEMITONES = [0, 2, 4, 5, 7, 9, 11] as const;
 
 export interface ConcreteChordSymbols {
   /** Suffix for minor triads.  Default: "m". */
