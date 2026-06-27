@@ -25,10 +25,19 @@ describe("MidiEventScheduler", () => {
 
   it("matches the chord voicings from Wave 2, in voicing order", () => {
     expect(track.notes.map((n) => n.midiNoteNumber)).toEqual([
-      60, 64, 67, // I
-      65, 69, 72, // IV
-      67, 71, 74, 77, // V7
-      60, 64, 67, // I
+      60,
+      64,
+      67, // I
+      65,
+      69,
+      72, // IV
+      67,
+      71,
+      74,
+      77, // V7
+      60,
+      64,
+      67, // I
     ]);
   });
 
