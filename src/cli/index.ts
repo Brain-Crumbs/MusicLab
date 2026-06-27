@@ -17,6 +17,7 @@ import {
   SvgTopologyRenderer,
   SvgTensionTimelineRenderer,
   exportMidiFromGeneration,
+  exportWavFromGeneration,
   type MidiExportConfig,
 } from "../index.js";
 import { loadGeneratorConfig, type RawGeneratorOptions } from "./loadGeneratorConfig.js";
@@ -55,7 +56,9 @@ interface CliArgs extends RawGeneratorOptions {
   readonly vizOut?: string;
   /** File to write the exported `.mid` to. */
   readonly midi?: string;
-  /** Tempo for the exported MIDI, in beats per minute. */
+  /** File to write the exported `.wav` to. */
+  readonly wav?: string;
+  /** Tempo for the exported MIDI/WAV, in beats per minute. */
   readonly bpm?: number;
   readonly help?: boolean;
 }
@@ -110,6 +113,10 @@ function main(argv: readonly string[]): number {
 
     if (args.midi) {
       exportMidi(result, overrides, args.bpm, args.midi);
+    }
+
+    if (args.wav) {
+      exportWav(result, overrides, args.bpm, args.wav);
     }
 
     return 0;
@@ -197,6 +204,25 @@ function exportMidi(
   err(`MIDI written to ${midiOut}`);
 }
 
+function exportWav(
+  result: GenerationResult,
+  overrides: ReturnType<typeof loadGeneratorConfig>["overrides"],
+  bpm: number | undefined,
+  wavOut: string,
+): void {
+  // Mirror the same key/mode/bpm the MIDI path uses so audio and notation stay
+  // in lock-step; undefined fields fall through to DefaultMidiExportConfig.
+  const wavOverrides: Partial<MidiExportConfig> = {
+    ...(overrides.key !== undefined ? { key: overrides.key } : {}),
+    ...(overrides.mode !== undefined ? { mode: overrides.mode } : {}),
+    ...(bpm !== undefined ? { bpm } : {}),
+  };
+
+  const bytes = exportWavFromGeneration(result, wavOverrides);
+  writeFileSync(wavOut, bytes);
+  err(`WAV written to ${wavOut}`);
+}
+
 // ---------------------------------------------------------------------------
 // Argument parsing
 // ---------------------------------------------------------------------------
@@ -279,6 +305,9 @@ function assignFlag(result: Record<string, unknown>, name: string, value: string
     case "midi":
       result.midi = value;
       break;
+    case "wav":
+      result.wav = value;
+      break;
     case "bpm": {
       const bpm = parseNumber(name, value);
       if (bpm <= 0) {
@@ -341,7 +370,8 @@ function usage(): string {
     "  --viz-format <fmt>   Visualization format: mermaid | svg (default svg)",
     "  --viz-out <path>     Write the visualization to a file instead of stdout",
     "  --midi <path>        Export the progression as a .mid file",
-    "  --bpm <n>            Tempo for the exported MIDI, >0 (default 90)",
+    "  --wav <path>         Export the progression as a 16-bit PCM .wav file",
+    "  --bpm <n>            Tempo for the exported MIDI/WAV, >0 (default 90)",
     "  --help               Show this help",
     "",
     "Examples:",
@@ -352,6 +382,7 @@ function usage(): string {
     "  musiclab --seed 42 --viz topology --viz-format svg --viz-out topology.svg",
     "  musiclab --seed 42 --viz tension --viz-out tension.svg",
     "  musiclab --seed 42 --midi out.mid --key G --bpm 110",
+    "  musiclab --seed 42 --wav out.wav --bpm 90",
   ].join("\n");
 }
 

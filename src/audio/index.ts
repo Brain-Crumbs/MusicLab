@@ -5,3 +5,7 @@ export { Envelope } from "./synth/Envelope.js";
 export { SineVoice } from "./synth/SineVoice.js";
 export { BasicChordSynth } from "./synth/BasicChordSynth.js";
 export type { BasicChordSynthInput } from "./synth/BasicChordSynth.js";
+export type { WavFile } from "./model/WavFile.js";
+export { WavFileEncoder } from "./export/WavFileEncoder.js";
+export { exportWavFromGeneration } from "./export/exportWavFromGeneration.js";
+export type { ExportWavOptions } from "./export/exportWavFromGeneration.js";
