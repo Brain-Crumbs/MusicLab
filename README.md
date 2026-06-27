@@ -32,6 +32,9 @@ Common flags (`npm run cli -- --help` lists them all):
 | `--config <path>` | JSON file with any of the above fields |
 | `--trace <format>` | Also export the full trace: `json` or `csv` |
 | `--trace-out <path>` | Write the trace to a file instead of stdout |
+| `--midi <path>` | Export the progression as a `.mid` file |
+| `--wav <path>` | Export the progression as a 16-bit PCM `.wav` file |
+| `--bpm <n>` | Tempo for the exported MIDI/WAV, `>0` (default `90`) |
 
 Flags override values from `--config`. Every run prints the seed it used so any
 "random" progression can be reproduced by passing that seed back in.
@@ -52,7 +55,77 @@ npm run example:basic     # generate-basic-progression.ts — the minimal API ca
 npm run example:folk      # generate-folk-progression.ts  — how a StyleProfile steers output
 npm run example:debug     # debug-potential-field.ts      — per-step candidate field + factor breakdown
 npm run example:visuals   # generate-visuals.ts           — writes an SVG/Mermaid/HTML gallery to artifacts/
+npm run example:export    # export-playable-progression.ts — writes progression.mid + progression.wav to artifacts/
 ```
+
+## Exporting MIDI and WAV
+
+The generator's output can be turned into something you can hear. Two kinds of
+file are produced, and the distinction matters:
+
+- **MIDI (`.mid`)** is a set of *instructions* — "play these notes, at these
+  times, this loud." It carries no sound itself; a DAW or synth realizes it,
+  and it'll sound like whatever instrument you point at it.
+- **WAV (`.wav`)** is the *rendered sound* — already-mixed 16-bit PCM samples
+  you can play directly, no instrument required. MusicLab renders it with a
+  tiny dependency-free sine synth.
+
+Both are derived from the **same** scheduled track, so they can never drift in
+tempo or voicing. The MVP makes fixed musical assumptions: **90 BPM**, **4/4**,
+one **block chord per bar**, voiced around octave 4, rendered with a **sine
+synth**.
+
+### From the library
+
+Three public helpers, in increasing convenience:
+
+```ts
+import {
+  createDefaultMvpGenerator,
+  chordId,
+  Mode,
+  exportMidiFromGeneration,
+  exportWavFromGeneration,
+  exportPlayableChordProgression,
+} from "@harmonic-field/core";
+import { writeFileSync } from "node:fs";
+
+const generator = createDefaultMvpGenerator({ key: "C", seed: 42 });
+const result = generator.generate({ steps: 8, initialChord: chordId("I") });
+
+// One file at a time:
+const midi = exportMidiFromGeneration(result, { key: "C", bpm: 90 });
+const wav = exportWavFromGeneration(result, { key: "C", bpm: 90 });
+
+// Or BOTH from a single shared track (preferred — MIDI and audio can't drift):
+const both = exportPlayableChordProgression(result, { key: "C", mode: Mode.Major, bpm: 90 });
+
+writeFileSync("progression.mid", both.midi);
+writeFileSync("progression.wav", both.wav);
+```
+
+`exportPlayableChordProgression` schedules the track once and renders both
+outputs from it, so tempo and voicing are guaranteed identical. Reach for the
+single-format helpers only when you genuinely need just one file.
+
+### From the CLI
+
+Pass `--midi` and/or `--wav` (with an optional `--bpm`). Giving both in one run
+exports them from a single track:
+
+```sh
+# Both files from one run, in the key of C at 90 BPM
+musiclab --seed 42 --midi out.mid --wav out.wav --key C --bpm 90
+
+# MIDI only, transposed to G at a faster tempo
+musiclab --seed 42 --midi out.mid --key G --bpm 110
+
+# WAV only
+musiclab --seed 42 --wav out.wav --bpm 90
+```
+
+The same flags work with `npm run cli --`. The `example:export` script writes a
+seeded `progression.mid` and `progression.wav` to `artifacts/`.
 
 ## Visualizations
 

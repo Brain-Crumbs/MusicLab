@@ -18,3 +18,6 @@ export * from "./midi/index.js";
 
 // Audio synth (dependency-free PCM rendering)
 export * from "./audio/index.js";
+
+// Combined playback export (MIDI + WAV from one shared track)
+export * from "./playback/index.js";

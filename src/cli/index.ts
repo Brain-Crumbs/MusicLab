@@ -16,9 +16,8 @@ import {
   MermaidTrajectoryAdapter,
   SvgTopologyRenderer,
   SvgTensionTimelineRenderer,
-  exportMidiFromGeneration,
-  exportWavFromGeneration,
-  type MidiExportConfig,
+  exportPlayableChordProgression,
+  type PlaybackExportOverrides,
 } from "../index.js";
 import { loadGeneratorConfig, type RawGeneratorOptions } from "./loadGeneratorConfig.js";
 
@@ -111,12 +110,8 @@ function main(argv: readonly string[]): number {
       exportViz(result, topology, args.viz, args.vizFormat ?? "svg", args.vizOut);
     }
 
-    if (args.midi) {
-      exportMidi(result, overrides, args.bpm, args.midi);
-    }
-
-    if (args.wav) {
-      exportWav(result, overrides, args.bpm, args.wav);
+    if (args.midi || args.wav) {
+      exportPlayback(result, overrides, args.bpm, args.midi, args.wav);
     }
 
     return 0;
@@ -184,43 +179,34 @@ function exportViz(
   }
 }
 
-function exportMidi(
+function exportPlayback(
   result: GenerationResult,
   overrides: ReturnType<typeof loadGeneratorConfig>["overrides"],
   bpm: number | undefined,
-  midiOut: string,
+  midiOut: string | undefined,
+  wavOut: string | undefined,
 ): void {
   // Mirror the export to the key/mode the run actually used; `bpm` is a
-  // MIDI-only control with no generator equivalent, so it comes straight off
-  // the flag.  Undefined fields fall through to DefaultMidiExportConfig.
-  const midiOverrides: Partial<MidiExportConfig> = {
+  // playback-only control with no generator equivalent, so it comes straight
+  // off the flag.  Undefined fields fall through to DefaultMidiExportConfig.
+  const exportOverrides: PlaybackExportOverrides = {
     ...(overrides.key !== undefined ? { key: overrides.key } : {}),
     ...(overrides.mode !== undefined ? { mode: overrides.mode } : {}),
     ...(bpm !== undefined ? { bpm } : {}),
   };
 
-  const bytes = exportMidiFromGeneration(result, midiOverrides);
-  writeFileSync(midiOut, bytes);
-  err(`MIDI written to ${midiOut}`);
-}
+  // One shared track for both files, even when only one is requested — so the
+  // `.mid` and `.wav` from a single run can never drift in tempo or voicing.
+  const { midi, wav } = exportPlayableChordProgression(result, exportOverrides);
 
-function exportWav(
-  result: GenerationResult,
-  overrides: ReturnType<typeof loadGeneratorConfig>["overrides"],
-  bpm: number | undefined,
-  wavOut: string,
-): void {
-  // Mirror the same key/mode/bpm the MIDI path uses so audio and notation stay
-  // in lock-step; undefined fields fall through to DefaultMidiExportConfig.
-  const wavOverrides: Partial<MidiExportConfig> = {
-    ...(overrides.key !== undefined ? { key: overrides.key } : {}),
-    ...(overrides.mode !== undefined ? { mode: overrides.mode } : {}),
-    ...(bpm !== undefined ? { bpm } : {}),
-  };
-
-  const bytes = exportWavFromGeneration(result, wavOverrides);
-  writeFileSync(wavOut, bytes);
-  err(`WAV written to ${wavOut}`);
+  if (midiOut) {
+    writeFileSync(midiOut, midi);
+    err(`MIDI written to ${midiOut}`);
+  }
+  if (wavOut) {
+    writeFileSync(wavOut, wav);
+    err(`WAV written to ${wavOut}`);
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -371,6 +357,7 @@ function usage(): string {
     "  --viz-out <path>     Write the visualization to a file instead of stdout",
     "  --midi <path>        Export the progression as a .mid file",
     "  --wav <path>         Export the progression as a 16-bit PCM .wav file",
+    "                       (pass --midi and --wav together to emit both from one track)",
     "  --bpm <n>            Tempo for the exported MIDI/WAV, >0 (default 90)",
     "  --help               Show this help",
     "",
@@ -383,6 +370,7 @@ function usage(): string {
     "  musiclab --seed 42 --viz tension --viz-out tension.svg",
     "  musiclab --seed 42 --midi out.mid --key G --bpm 110",
     "  musiclab --seed 42 --wav out.wav --bpm 90",
+    "  musiclab --seed 42 --midi out.mid --wav out.wav --key C --bpm 90",
   ].join("\n");
 }
 

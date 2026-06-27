@@ -29,7 +29,8 @@
     "example:basic": "tsx examples/generate-basic-progression.ts",
     "example:folk": "tsx examples/generate-folk-progression.ts",
     "example:debug": "tsx examples/debug-potential-field.ts",
-    "example:visuals": "tsx examples/generate-visuals.ts"
+    "example:visuals": "tsx examples/generate-visuals.ts",
+    "example:export": "tsx examples/export-playable-progression.ts"
   },
   "devDependencies": {
     "@types/node": "^22.20.0",
