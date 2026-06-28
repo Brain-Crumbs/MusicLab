@@ -12,19 +12,23 @@ export interface BasicChordSynthInput {
 }
 
 /**
- * AUD-5.5 — turns a {@link MidiTrack} into a mono {@link AudioBufferData} with a
+ * AUD-5.5 — turns a {@link MidiTrack} into an {@link AudioBufferData} with a
  * tiny, dependency-free additive sine synth.
  *
  * Each note is rendered by a {@link SineVoice} and mixed (added) into the output
  * buffer at its sample offset. After mixing, the buffer is peak-normalized to
  * the configured `gain` so stacked chords stay within [-1, 1] (AUD-5.6).
  *
+ * Rendering is mono; when `config.channels` is 2 the mono mix is duplicated into
+ * both interleaved channels so a stereo `.wav` can be written (issue #48). The
+ * voices are identical in each channel — there is no panning in the MVP.
+ *
  * Pure and deterministic: same track + config ⇒ identical samples.
  */
 export class BasicChordSynth {
   static render({ track, config }: BasicChordSynthInput): AudioBufferData {
     const resolved = resolveAudioRenderConfig(config);
-    const { sampleRate, bpm, gain } = resolved;
+    const { sampleRate, bpm, gain, channels } = resolved;
 
     // Total duration is the latest note end, in seconds → samples.
     let lastEndBeat = 0;
@@ -79,6 +83,23 @@ export class BasicChordSynth {
           samples[i] = (samples[i] ?? 0) * scale;
         }
       }
+    }
+
+    if (channels === 2) {
+      // Duplicate the mono mix into L and R (interleaved). `length` stays the
+      // per-channel frame count; `samples` holds 2 values per frame.
+      const stereo = new Float32Array(totalSamples * 2);
+      for (let i = 0; i < totalSamples; i++) {
+        const sample = samples[i] ?? 0;
+        stereo[i * 2] = sample;
+        stereo[i * 2 + 1] = sample;
+      }
+      return {
+        sampleRate,
+        channels: 2,
+        samples: stereo,
+        length: totalSamples,
+      };
     }
 
     return {

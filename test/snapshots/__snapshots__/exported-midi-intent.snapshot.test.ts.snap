@@ -4,6 +4,44 @@ exports[`MIDI-4.7 — exported MidiTrack intent snapshot > matches the recorded 
 {
   "bpm": 90,
   "channel": 0,
+  "markers": [
+    {
+      "beat": 0,
+      "text": "C",
+    },
+    {
+      "beat": 4,
+      "text": "F",
+    },
+    {
+      "beat": 8,
+      "text": "C",
+    },
+    {
+      "beat": 12,
+      "text": "G",
+    },
+    {
+      "beat": 16,
+      "text": "C",
+    },
+    {
+      "beat": 20,
+      "text": "Am",
+    },
+    {
+      "beat": 24,
+      "text": "Dm",
+    },
+    {
+      "beat": 28,
+      "text": "G7",
+    },
+    {
+      "beat": 32,
+      "text": "C",
+    },
+  ],
   "notes": [
     {
       "durationBeats": 4,

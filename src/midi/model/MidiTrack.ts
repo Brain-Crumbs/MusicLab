@@ -1,4 +1,5 @@
 import type { MidiNoteEvent } from "./MidiNoteEvent.js";
+import type { MidiMarker } from "./MidiMarker.js";
 
 /**
  * Flattened, ordered note schedule consumed by exporters and the synth layer.
@@ -8,6 +9,9 @@ import type { MidiNoteEvent } from "./MidiNoteEvent.js";
  * program: GM program number (0–127).
  * ppq: ticks per quarter note, e.g. 480.
  * timeSignature: [beatsPerBar, beatUnit] — e.g. [4, 4] for common time.
+ * markers: optional named markers (one per chord) for exporters that emit
+ *   marker meta-events; honoured by MIDI export when
+ *   `MidiExportConfig.includeChordNamesAsMarkers` is set. The synth ignores them.
  */
 export interface MidiTrack {
   readonly name?: string;
@@ -17,4 +21,5 @@ export interface MidiTrack {
   readonly ppq: number;
   readonly timeSignature: [number, number];
   readonly notes: readonly MidiNoteEvent[];
+  readonly markers?: readonly MidiMarker[];
 }

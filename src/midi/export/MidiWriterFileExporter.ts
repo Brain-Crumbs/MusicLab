@@ -26,7 +26,7 @@ const WRITER_TICKS_PER_QUARTER = 128;
  * group's start is expressed as the next event's `wait`.
  */
 export class MidiWriterFileExporter implements MidiFileExporter {
-  export(track: MidiTrack, _config: MidiExportConfig): Uint8Array {
+  export(track: MidiTrack, config: MidiExportConfig): Uint8Array {
     const writerTrack = new MidiWriter.Track();
 
     if (track.name !== undefined) {
@@ -45,9 +45,25 @@ export class MidiWriterFileExporter implements MidiFileExporter {
       }),
     );
 
+    // Chord-name markers (MIDI-4 / issue #48).  Gated by config; keyed by start
+    // beat so each marker is emitted right before the chord that lands there.
+    // The block-chord MVP is gap-free (the scheduler stamps contiguous starts),
+    // so a marker added immediately before its NoteEvent — a zero-delta meta
+    // event, which never advances the clock — sits exactly on the chord
+    // boundary without perturbing note timing.
+    const markerTextByBeat =
+      config.includeChordNamesAsMarkers && track.markers !== undefined
+        ? new Map(track.markers.map((m) => [m.beat, m.text]))
+        : undefined;
+
     let previousEndBeat = 0;
     for (const group of groupNotesByStartBeat(track.notes)) {
       const waitBeats = group.startBeat - previousEndBeat;
+
+      const markerText = markerTextByBeat?.get(group.startBeat);
+      if (markerText !== undefined) {
+        writerTrack.addEvent(new MidiWriter.MarkerEvent({ text: markerText }));
+      }
 
       writerTrack.addEvent(
         new MidiWriter.NoteEvent({

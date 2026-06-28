@@ -2,6 +2,7 @@ import type { ChordTimeline } from "./ChordTimeline.js";
 import type { MidiExportConfig } from "../model/MidiExportConfig.js";
 import type { MidiTrack } from "../model/MidiTrack.js";
 import type { MidiNoteEvent } from "../model/MidiNoteEvent.js";
+import type { MidiMarker } from "../model/MidiMarker.js";
 
 export interface MidiScheduleInput {
   readonly timeline: ChordTimeline;
@@ -39,6 +40,14 @@ export class MidiEventScheduler {
       // chord's notes stay grouped exactly as the voicing engine produced them.
       .sort((a, b) => a.startBeat - b.startBeat);
 
+    // One marker per chord, at its start beat, labelled with the chord name.
+    // Always carried on the track; MIDI export decides whether to write them
+    // (via `includeChordNamesAsMarkers`).  The synth ignores markers.
+    const markers: MidiMarker[] = timeline.events.map((event) => ({
+      beat: event.startBeat,
+      text: event.chordName,
+    }));
+
     return {
       channel: DEFAULT_CHANNEL,
       program: DEFAULT_PROGRAM,
@@ -46,6 +55,7 @@ export class MidiEventScheduler {
       ppq: DEFAULT_PPQ,
       timeSignature: [timeline.beatsPerMeasure, 4],
       notes,
+      markers,
     };
   }
 }

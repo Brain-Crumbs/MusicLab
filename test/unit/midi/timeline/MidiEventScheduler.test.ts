@@ -59,4 +59,13 @@ describe("MidiEventScheduler", () => {
     const last = track.notes[track.notes.length - 1]!;
     expect(last.startBeat + last.durationBeats).toBe(16);
   });
+
+  it("emits one chord-name marker per chord, at each chord's start beat (#48)", () => {
+    expect(track.markers).toEqual([
+      { beat: 0, text: "C" }, // I
+      { beat: 4, text: "F" }, // IV
+      { beat: 8, text: "G7" }, // V7
+      { beat: 12, text: "C" }, // I
+    ]);
+  });
 });

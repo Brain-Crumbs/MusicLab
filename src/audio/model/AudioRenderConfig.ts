@@ -2,7 +2,7 @@
  * Configuration for the dependency-free PCM synth (Wave 5).
  *
  * sampleRate: output samples per second (e.g. 44100).
- * channels: 1 = mono, 2 = stereo. MVP renders mono only.
+ * channels: 1 = mono, 2 = stereo (the mono mix duplicated into both channels).
  * bpm: tempo used to convert note beats → wall-clock seconds.
  * attackSeconds / releaseSeconds: per-note envelope ramps (prevent clicks).
  * gain: normalization target / peak ceiling in [0, 1] (keeps mixes off the rails).

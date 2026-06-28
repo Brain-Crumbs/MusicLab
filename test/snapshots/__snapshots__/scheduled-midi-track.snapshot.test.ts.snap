@@ -253,6 +253,44 @@ exports[`MIDI-3.6 — scheduled MidiTrack snapshot > matches the recorded MidiTr
 {
   "bpm": 90,
   "channel": 0,
+  "markers": [
+    {
+      "beat": 0,
+      "text": "C",
+    },
+    {
+      "beat": 4,
+      "text": "Am",
+    },
+    {
+      "beat": 8,
+      "text": "Dm",
+    },
+    {
+      "beat": 12,
+      "text": "G",
+    },
+    {
+      "beat": 16,
+      "text": "C",
+    },
+    {
+      "beat": 20,
+      "text": "Em",
+    },
+    {
+      "beat": 24,
+      "text": "Dm",
+    },
+    {
+      "beat": 28,
+      "text": "G7",
+    },
+    {
+      "beat": 32,
+      "text": "C",
+    },
+  ],
   "notes": [
     {
       "durationBeats": 4,

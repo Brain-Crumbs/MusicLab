@@ -26,6 +26,16 @@ declare module "midi-writer-js" {
     constructor(fields: { instrument: number; channel?: number; delta?: number });
   }
 
+  /**
+   * Marker meta-event.  `delta` is ticks from the previous event; a zero-delta
+   * marker fires at the current track position without advancing the clock.
+   */
+  class MarkerEvent {
+    constructor(fields: { text: string; delta?: number });
+  }
+
+  type TrackEvent = NoteEvent | ProgramChangeEvent | MarkerEvent;
+
   class Track {
     addTrackName(text: string): Track;
     setTempo(bpm: number, tick?: number): Track;
@@ -35,7 +45,7 @@ declare module "midi-writer-js" {
       midiclockspertick?: number,
       notespermidiclock?: number,
     ): Track;
-    addEvent(events: NoteEvent | ProgramChangeEvent | Array<NoteEvent | ProgramChangeEvent>): Track;
+    addEvent(events: TrackEvent | TrackEvent[]): Track;
   }
 
   class Writer {
@@ -49,10 +59,11 @@ declare module "midi-writer-js" {
   const MidiWriter: {
     NoteEvent: typeof NoteEvent;
     ProgramChangeEvent: typeof ProgramChangeEvent;
+    MarkerEvent: typeof MarkerEvent;
     Track: typeof Track;
     Writer: typeof Writer;
   };
 
   export default MidiWriter;
-  export { NoteEvent, ProgramChangeEvent, Track, Writer };
+  export { NoteEvent, ProgramChangeEvent, MarkerEvent, Track, Writer };
 }

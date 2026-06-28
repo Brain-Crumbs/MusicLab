@@ -97,4 +97,36 @@ describe("BasicChordSynth", () => {
     expect(buffer.length).toBe(0);
     expect(buffer.samples.length).toBe(0);
   });
+
+  describe("channels (#48)", () => {
+    const track = makeTrack([
+      { midiNoteNumber: 60, startBeat: 0, durationBeats: 4, velocity: 90 },
+      { midiNoteNumber: 64, startBeat: 0, durationBeats: 4, velocity: 90 },
+    ]);
+
+    it("defaults to mono (one sample per frame)", () => {
+      const buffer = BasicChordSynth.render({ track });
+      expect(buffer.channels).toBe(1);
+      expect(buffer.samples.length).toBe(buffer.length);
+    });
+
+    it("honours channels: 2 — same frame count, interleaved L==R from the mono mix", () => {
+      const mono = BasicChordSynth.render({ track });
+      const stereo = BasicChordSynth.render({ track, config: { channels: 2 } });
+
+      // Stereo reports the same per-channel frame count but holds 2 values/frame.
+      expect(stereo.channels).toBe(2);
+      expect(stereo.length).toBe(mono.length);
+      expect(stereo.samples.length).toBe(mono.length * 2);
+
+      // Every frame's L and R equal each other and equal the mono sample (the
+      // MVP duplicates the mix into both channels — no panning).
+      for (let frame = 0; frame < stereo.length; frame++) {
+        const left = stereo.samples[frame * 2];
+        const right = stereo.samples[frame * 2 + 1];
+        expect(left).toBe(right);
+        expect(left).toBe(mono.samples[frame]);
+      }
+    });
+  });
 });
